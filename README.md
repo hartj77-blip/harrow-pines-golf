@@ -4,7 +4,9 @@ A six-hole, par-23 golf game that runs in the browser. It's a single HTML file b
 
 ## Play
 
-Open `index.html` in a browser, or serve the folder with any static host. GitHub Pages works: Settings → Pages → deploy from the `main` branch.
+Play online at **https://hartj77-blip.github.io/harrow-pines-golf/** (GitHub Pages, served from the `main` branch root).
+
+Or open `index.html` locally in a browser, or serve the folder with any static host.
 
 ## Controls
 
