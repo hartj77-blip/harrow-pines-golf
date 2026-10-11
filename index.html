@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Harrow Pines Golf</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -207,6 +212,8 @@ table.sc{border-collapse:collapse;width:100%;font-size:16px;min-width:440px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
+</head>
+<body>
 <canvas id="view" aria-label="3D golf course view"></canvas>
 
 <div class="hud" id="hud" hidden>
@@ -1229,3 +1236,5 @@ addEventListener('resize',resize);resize();
 window.__golf={holeOut,readSave,game,simulate,CLUBS,HOLES,buildHole,launchParams,paintCourse,buildScene,prepareShot,executeShot,onClubChange};
 })();
 </script>
+</body>
+</html>
