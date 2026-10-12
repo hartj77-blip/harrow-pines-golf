@@ -315,9 +315,11 @@ table.sc{border-collapse:collapse;width:100%;font-size:16px;min-width:440px}
   <div class="panel">
     <div class="eyebrow">Golf club · range · your own course</div>
     <h1>Harrow Pines</h1>
-    <p>A pine-lined parkland six with real ball flight: spin, drag, wind and roll-out all come from the physics model, and every shot reads back on the launch monitor.</p>
+    <p>Three courses with real ball flight: spin, drag, wind and roll-out all come from the physics model, and every shot reads back on the launch monitor. Practise on the range and My Course reshapes itself around your game.</p>
     <div class="modes" role="radiogroup" aria-label="Choose what to play">
-      <button class="mode" data-mode="harrow" role="radio" aria-checked="true"><b>Harrow Pines</b><span>Six holes · par 23</span></button>
+      <button class="mode" data-mode="harrow" role="radio" aria-checked="true"><b>Harrow Pines</b><span>Pine parkland · 9 holes · par 35</span></button>
+      <button class="mode" data-mode="links" role="radio" aria-checked="false"><b>Saltmarsh Links</b><span>Seaside dunes, pot bunkers, wind · par 36</span></button>
+      <button class="mode" data-mode="mesa" role="radio" aria-checked="false"><b>Red Mesa</b><span>Desert target golf, high tees · par 36</span></button>
       <button class="mode" data-mode="mine" role="radio" aria-checked="false"><b>My Course</b><span id="mineSub">Par 3, 4 and 5 built from your range swings</span></button>
       <button class="mode" data-mode="range" role="radio" aria-checked="false"><b>Driving Range</b><span id="rangeSub">Unlimited balls, every swing logged</span></button>
     </div>
@@ -426,9 +428,70 @@ const HOLES=[
    path:[[0,0],[0,175],[45,265],[62,330]],green:{r:14,slope:[-.01,-.012],cup:[-4,2]},
    bunkers:[[-16,190,8],[47,343,5],[79,332,4.5]],water:[[42,192,20,26],[76,298,9,13]]}
 ];
+HOLES.push(
+  {name:'Chapel Rise',par:4,seed:71,teeElev:2,greenElev:12,fw:30,fwStart:100,
+   path:[[0,0],[-6,190],[-2,350]],green:{r:14,rz:1.15,slope:[.008,-.012],cup:[3,-3]},
+   bunkers:[[14,205,8],[-20,180,7],[-16,352,5],[12,340,5]],water:[]},
+  {name:'Mill Stream',par:3,seed:79,teeElev:5,greenElev:3,fw:24,fwStart:125,
+   path:[[0,0],[8,150]],green:{r:14,slope:[-.01,.008],cup:[-3,2]},
+   bunkers:[[22,152,5],[-6,166,5]],water:[[-26,95,14,40]]},
+  {name:'Home Pines',par:5,seed:83,teeElev:3,greenElev:4,fw:34,fwStart:105,
+   path:[[0,0],[0,230],[30,360],[48,480]],green:{r:15,rz:1.15,slope:[-.01,-.012],cup:[-4,4]},
+   bunkers:[[-18,240,9],[20,225,8],[52,370,8],[34,486,5],[62,474,5]],water:[[66,300,16,28]]});
+const LINKS=[
+  {name:'Dune Gate',par:4,seed:201,teeElev:3,greenElev:4,fw:38,fwStart:80,path:[[0,0],[0,200],[-15,345]],green:{r:16,rx:1.1,slope:[.01,-.01],cup:[3,2]},
+   bunkers:[[12,215,4],[-14,190,4],[6,240,3.5],[-26,340,4],[-6,360,4]],water:[]},
+  {name:'Long Shore',par:4,seed:207,teeElev:4,greenElev:2,fw:36,fwStart:90,path:[[0,0],[5,220],[20,380]],green:{r:15,slope:[-.008,-.01],cup:[-3,3]},
+   bunkers:[[-14,230,4],[16,210,4.5],[26,365,4],[8,392,4]],water:[[-60,250,30,90]]},
+  {name:'The Saucer',par:3,seed:211,teeElev:4,greenElev:3,fw:26,fwStart:110,path:[[0,0],[-5,145]],green:{r:13,slope:[.012,.01],cup:[2,-2]},
+   bunkers:[[-19,138,3.5],[9,133,3.5],[-13,160,3.5],[5,162,3.5],[-6,127,3]],water:[]},
+  {name:'Gorse Run',par:5,seed:219,teeElev:2,greenElev:5,fw:38,fwStart:95,path:[[0,0],[0,240],[-30,380],[-30,500]],green:{r:16,rz:1.2,slope:[.008,-.012],cup:[-3,4]},
+   bunkers:[[14,255,4],[-14,232,4],[-48,375,4.5],[-14,388,4],[-30,452,4],[-46,505,4],[-14,512,4]],water:[]},
+  {name:'Old Wall',par:4,seed:223,teeElev:3,greenElev:3,fw:34,fwStart:90,path:[[0,0],[10,190],[0,335]],green:{r:14,slope:[-.01,.01],cup:[-2,-3]},
+   bunkers:[[-10,200,4],[26,182,4.5],[15,330,4],[-14,322,4]],water:[]},
+  {name:'Estuary',par:3,seed:229,teeElev:6,greenElev:3,fw:28,fwStart:150,path:[[0,0],[0,175]],green:{r:15,rx:1.15,slope:[.01,-.008],cup:[4,0]},
+   bunkers:[[-19,176,4],[18,182,4]],water:[[0,95,40,38]]},
+  {name:'Lighthouse',par:4,seed:233,teeElev:3,greenElev:4,fw:36,fwStart:90,path:[[0,0],[-10,210],[15,350]],green:{r:15,slope:[.01,-.012],cup:[3,3]},
+   bunkers:[[8,225,4.5],[-26,200,4],[31,345,4],[4,363,4]],water:[[45,260,22,50]]},
+  {name:'Links End',par:5,seed:239,teeElev:2,greenElev:3,fw:40,fwStart:100,path:[[0,0],[0,250],[25,390],[15,515]],green:{r:16,slope:[-.01,-.01],cup:[-3,3]},
+   bunkers:[[-15,262,4],[16,240,4],[42,398,4],[8,402,4],[32,512,4],[-2,522,4]],water:[[-70,350,35,110]]},
+  {name:'Clubhouse',par:4,seed:241,teeElev:4,greenElev:5,fw:36,fwStart:90,path:[[0,0],[0,200],[-12,370]],green:{r:16,slope:[.008,-.01],cup:[3,-3]},
+   bunkers:[[14,210,4],[-14,195,4],[-30,365,4],[5,372,4],[-16,390,4]],water:[]}];
+const MESA=[
+  {name:'Canyon Mouth',par:4,seed:301,teeElev:8,greenElev:4,fw:32,fwStart:100,path:[[0,0],[0,190],[20,330]],green:{r:15,slope:[.01,-.01],cup:[3,2]},
+   bunkers:[[-16,200,8],[32,330,6],[8,344,5]],water:[]},
+  {name:'Oasis',par:3,seed:307,teeElev:5,greenElev:3,fw:24,fwStart:115,path:[[0,0],[6,140]],green:{r:14,rx:1.15,slope:[-.008,.01],cup:[-3,0]},
+   bunkers:[[-12,150,5]],water:[[-10,90,26,22],[31,142,7,10]]},
+  {name:'Saguaro Trail',par:5,seed:311,teeElev:6,greenElev:10,fw:34,fwStart:100,path:[[0,0],[0,240],[35,370],[30,490]],green:{r:15,rz:1.15,slope:[.01,-.012],cup:[2,4]},
+   bunkers:[[-18,250,9],[18,230,8],[56,370,8],[14,380,6],[48,492,5],[13,498,5]],water:[]},
+  {name:'Red Ledge',par:4,seed:313,teeElev:14,greenElev:6,fw:30,fwStart:110,path:[[0,0],[-8,200],[-30,345]],green:{r:14,slope:[-.01,-.01],cup:[-3,2]},
+   bunkers:[[10,215,7],[-28,190,7],[-48,345,5],[-13,351,5]],water:[]},
+  {name:'Mirage',par:3,seed:317,teeElev:12,greenElev:2,fw:26,fwStart:150,path:[[0,0],[-10,185]],green:{r:16,slope:[.01,.008],cup:[3,-3]},
+   bunkers:[[-31,180,6],[10,186,6],[-12,205,5]],water:[[-40,110,15,25]]},
+  {name:'Dry Wash',par:4,seed:331,teeElev:4,greenElev:5,fw:32,fwStart:95,path:[[0,0],[0,180],[25,320]],green:{r:14,slope:[.01,-.01],cup:[2,3]},
+   bunkers:[[-14,190,8],[0,240,6],[41,316,5],[12,331,5]],water:[]},
+  {name:'Long Mesa',par:5,seed:337,teeElev:4,greenElev:9,fw:36,fwStart:100,path:[[0,0],[0,250],[-30,390],[-20,510]],green:{r:16,rz:1.2,slope:[.008,-.012],cup:[-2,4]},
+   bunkers:[[16,262,8],[-16,240,8],[-50,392,7],[-8,398,6],[-38,512,5],[-2,516,5]],water:[[26,380,16,30]]},
+  {name:'Spur',par:4,seed:347,teeElev:5,greenElev:4,fw:30,fwStart:100,path:[[0,0],[10,200],[0,340]],green:{r:13,rz:1.25,slope:[-.01,.01],cup:[-2,-4]},
+   bunkers:[[-8,212,6],[28,196,6],[-15,336,5],[13,352,5]],water:[]},
+  {name:'Sunset Cliffs',par:4,seed:353,teeElev:10,greenElev:6,fw:34,fwStart:100,path:[[0,0],[0,210],[-25,365]],green:{r:15,slope:[.01,-.012],cup:[3,3]},
+   bunkers:[[16,222,8],[-18,200,7],[-43,360,5],[-9,373,5]],water:[[-50,270,14,40]]}];
+LINKS.forEach(h=>h.theme='links');MESA.forEach(h=>h.theme='desert');
+/* course looks: colours (sRGB 0-255), trees, dunes, wind and a music key per course */
+const THEMES={
+  parkland:{rough:[60,108,42],roughDeep:[68,102,40],cut:[78,138,50],fairway:[96,162,58],green:[102,176,66],fringe:[88,154,56],tee:[100,168,62],sand:[226,208,160],sandEdge:[186,166,120],oob:[52,94,38],
+    outer:'#3b6a2f',hill:'#4f7459',hillH:[50,110],sky:['#3f80c6','#9fc7e4','#d3e4e6'],water:'#2c6684',trees:{density:1,mix:[['pine',.55],['round',.45]]},shrubCols:['#4c6a34','#5a7438'],dunes:1,windMax:14,roughName:'Rough',music:0},
+  links:{rough:[138,140,76],roughDeep:[156,142,84],cut:[104,140,62],fairway:[110,158,70],green:[106,170,72],fringe:[98,156,64],tee:[104,162,66],sand:[214,198,152],sandEdge:[156,136,98],oob:[150,136,86],
+    outer:'#8c8a56',hill:'#7c8a6a',hillH:[30,70],sky:['#5c86ae','#b9cdd9','#e0e6e6'],water:'#37697f',trees:{density:.18,mix:[['shrub',.8],['pine',.2]]},shrubCols:['#4f6a2c','#62762f','#7a7a34','#8a7f2e'],dunes:1.9,windMax:22,roughName:'Fescue',music:-2},
+  desert:{rough:[194,154,106],roughDeep:[206,160,110],cut:[118,150,70],fairway:[102,160,64],green:[100,172,66],fringe:[92,150,60],tee:[104,166,64],sand:[234,216,172],sandEdge:[200,176,128],oob:[186,138,94],
+    outer:'#bb8b5f',hill:'#a5624a',hillH:[90,210],sky:['#3a7ccc','#a9cce8','#eedcc2'],water:'#2a7a8c',trees:{density:.24,mix:[['palm',.35],['shrub',.65]]},shrubCols:['#77885a','#8a8f62','#6c7a50','#9a9a6a'],dunes:1.25,windMax:12,roughName:'Desert',music:3}};
+const COURSES={
+  harrow:{id:'harrow',name:'Harrow Pines',holes:HOLES,bestKey:'harrowPinesBest',theme:'parkland'},
+  links:{id:'links',name:'Saltmarsh Links',holes:LINKS,bestKey:'harrowPinesLinksBest',theme:'links'},
+  mesa:{id:'mesa',name:'Red Mesa',holes:MESA,bestKey:'harrowPinesMesaBest',theme:'desert'}};
 const RANGE_DEF={name:'Driving Range',par:0,seed:5,teeElev:2,greenElev:2,fw:84,fwStart:0,range:true,
   path:[[0,0],[0,300]],green:{r:18,slope:[0,0],cup:[0,0]},bunkers:[],water:[],targets:[50,100,150,200,250],tx:[-13,10,-7,12,-2]};
-let course={id:'harrow',name:'Harrow Pines',holes:HOLES,bestKey:'harrowPinesBest'};
+let course=COURSES.harrow;
 const curHoles=()=>course.holes,coursePar=()=>course.holes.reduce((a,h)=>a+h.par,0);
 
 /* range data: the last 40 swings per club, kept in this browser */
@@ -482,7 +545,7 @@ function buildMyCourse(){
 }
 
 function buildHole(def){
-  const H={def,par:def.par,name:def.name};const sd=def.seed;
+  const T=THEMES[def.theme||'parkland'];const H={def,par:def.par,name:def.name,T};const sd=def.seed;
   const P=def.path.map(p=>[-p[0],p[1]]);
   H.segs=[];let acc=0;
   for(let i=0;i<P.length-1;i++){const ax=P[i][0],az=P[i][1],dx=P[i+1][0]-ax,dz=P[i+1][1]-az,len=Math.hypot(dx,dz);H.segs.push({ax,az,dx,dz,len,l2:len*len,s0:acc});acc+=len;}
@@ -501,7 +564,7 @@ function buildHole(def){
     CL.d=Math.sqrt(bd);CL.s=bs;CL.sd=bsd;return CL;};
   H.pointAt=s=>{for(const g of H.segs){if(s<=g.s0+g.len){const t=clamp((s-g.s0)/g.len,0,1);return{x:g.ax+g.dx*t,z:g.az+g.dz*t};}}return{x:H.gx,z:H.gz};};
   H.halfWidth=s=>H.fwHalf*(1+.1*Math.sin(s*.043+sd)+.06*Math.sin(s*.12+sd*2));
-  H.roll=(x,z)=>1.5*Math.sin(.019*x+ph[0])*Math.cos(.015*z+ph[1])+.8*Math.sin(.041*x-.029*z+ph[2])+.35*Math.sin(.093*x+.071*z+ph[3])+1.1*(vnoise(x*.02+sd*13.1,z*.02+sd*7.7)-.5);
+  H.roll=(x,z)=>T.dunes*(1.5*Math.sin(.019*x+ph[0])*Math.cos(.015*z+ph[1])+.8*Math.sin(.041*x-.029*z+ph[2])+.35*Math.sin(.093*x+.071*z+ph[3])+1.1*(vnoise(x*.02+sd*13.1,z*.02+sd*7.7)-.5));
   H.greenN=(x,z)=>{const dx=x-H.gx,dz=z-H.gz,e=Math.hypot(dx/H.grx,dz/H.grz),th=Math.atan2(dz,dx);return e/(H.gr*(1+.07*Math.sin(3*th+sd)+.05*Math.sin(5*th+sd*3)));};
   H.bunkerN=(b,x,z)=>{const dx=x-b.x,dz=z-b.z,d=Math.hypot(dx,dz);if(d>b.r*1.6)return 9;const th=Math.atan2(dz,dx);return d/(b.r*(1+.16*Math.sin(2*th+b.x)+.09*Math.sin(3*th+b.z)));};
   H.waterN=(w,x,z)=>Math.hypot((x-w.x)/w.rx,(z-w.z)/w.rz);
@@ -542,23 +605,26 @@ function buildHole(def){
     const c=H.closest(x,z),off=c.d-H.halfWidth(c.s);if(off<9&&e>H.margin)continue;
     let bad=false;for(const b of H.bunkers)if(Math.hypot(x-b.x,z-b.z)<b.r*1.5+4)bad=true;for(const w of H.water)if(H.waterN(w,x,z)<1.35)bad=true;if(bad)continue;
     const p=e<H.margin+6?.95:smooth(10,42,off)*(.2+.8*vnoise(x*.03+sd,z*.03-sd));
-    if(R()>p*.6)continue;
-    H.trees.push(makeTree(x,z,H.height(x,z),R));
+    if(R()>p*.6*T.trees.density)continue;
+    H.trees.push(makeTree(x,z,H.height(x,z),R,T));
   }
-  for(let i=0;i<1300;i++){
+  for(let i=0,nd=Math.round(1300*Math.max(.3,T.trees.density));i<nd;i++){
     const side=R()*4|0,out=R()*90;let x,z;
     if(side===0){x=H.minX-out;z=H.minZ-90+R()*(H.L+180);}else if(side===1){x=H.maxX+out;z=H.minZ-90+R()*(H.L+180);}
     else if(side===2){z=H.minZ-out;x=H.minX+R()*H.W;}else{z=H.maxZ+out;x=H.minX+R()*H.W;}
-    H.deco.push(makeTree(x,z,H.edgeH,R));
+    H.deco.push(makeTree(x,z,H.edgeH,R,T));
   }
   H.grid=new Map();
   H.trees.forEach((t,i)=>{H.treeTop=Math.max(H.treeTop,t.ct);const k=((t.x-H.minX)/16|0)+','+((t.z-H.minZ)/16|0);if(!H.grid.has(k))H.grid.set(k,[]);H.grid.get(k).push(i);});
   return H;
 }
-function makeTree(x,z,y,R){
-  const pine=R()<.55,sc=.8+R()*.5;
-  if(pine){const th=2.2*sc,h=(9+R()*6)*sc,r=(2.4+R()*1.1)*sc,cb=y+th*.6;return{x,z,y,pine,th,h,r,cb,ct:cb+h,tint:R()};}
-  const th=3*sc,r=(3+R()*1.6)*sc,cy=y+th+r*.6;return{x,z,y,pine,th,r,cy,cb:cy-r*.85,ct:cy+r*.85,tint:R()};
+function makeTree(x,z,y,R,T){
+  let u=R(),kind=T.trees.mix[T.trees.mix.length-1][0];for(const [k,w] of T.trees.mix){if(u<w){kind=k;break;}u-=w;}
+  const sc=.8+R()*.5,pine=kind==='pine';
+  if(pine){const th=2.2*sc,h=(9+R()*6)*sc,r=(2.4+R()*1.1)*sc,cb=y+th*.6;return{x,z,y,pine,kind,th,h,r,cb,ct:cb+h,tint:R()};}
+  if(kind==='palm'){const th=(7+R()*4)*sc,r=(2.2+R())*sc,cy=y+th;return{x,z,y,pine,kind,th,r,cy,cb:cy-r*.4,ct:cy+r*.4,tint:R()};}
+  if(kind==='shrub'){const r=(.8+R()*.9)*sc,cy=y+r*.45;return{x,z,y,pine,kind,th:0,r,cy,cb:y,ct:y+r*1.1,tint:R()};}
+  const th=3*sc,r=(3+R()*1.6)*sc,cy=y+th+r*.6;return{x,z,y,pine,kind,th,r,cy,cb:cy-r*.85,ct:cy+r*.85,tint:R()};
 }
 
 /* ---------- ball physics ---------- */
@@ -690,20 +756,20 @@ let slopeLines=null;
 function paintCourse(H){
   const res=.4,TW=Math.min(2048,Math.round(H.W/res)),TH=Math.min(2048,Math.round(H.L/res));
   const cv=document.createElement('canvas');cv.width=TW;cv.height=TH;const ctx=cv.getContext('2d');
-  const img=ctx.createImageData(TW,TH),d=img.data,sx=H.W/TW,sz=H.L/TH;
+  const img=ctx.createImageData(TW,TH),d=img.data,sx=H.W/TW,sz=H.L/TH,T=H.T;
   let i=0;
   for(let py=0;py<TH;py++){const z=H.minZ+(py+.5)*sz;
     for(let px=0;px<TW;px++,i+=4){const x=H.minX+(px+.5)*sx;
       const s=H.surface(x,z),big=vnoise(x*.045,z*.045)-.5,fine=hash2(px,py)-.5;let r,g,b,k;
-      if(s===FAIRWAY){const c=H.closest(x,z),st=(Math.floor((c.sd+300)/6.5)&1)?1:-1,cross=(Math.floor(c.s/11)&1)?.012:-.012;k=1+.06*st+cross+big*.12+fine*.05;r=96*k;g=162*k;b=58*k;}
+      if(s===FAIRWAY){const c=H.closest(x,z),st=(Math.floor((c.sd+300)/6.5)&1)?1:-1,cross=(Math.floor(c.s/11)&1)?.012:-.012;k=1+.06*st+cross+big*.12+fine*.05;r=T.fairway[0]*k;g=T.fairway[1]*k;b=T.fairway[2]*k;}
       else if(s===ROUGH){const c=H.closest(x,z),off=c.d-H.halfWidth(c.s);k=1+big*.28+fine*.12;
-        if(off<2.6&&c.s>H.fwStart-4){r=78*k;g=138*k;b=50*k;}else{const dd=smooth(10,60,off);r=(60+8*dd)*k;g=(108-6*dd)*k;b=(42-2*dd)*k;}}
-      else if(s===GREEN){const ch=((Math.floor(x/2.2)+Math.floor(z/2.2))&1)?1:-1;k=1+.025*ch+big*.05+fine*.03;r=102*k;g=176*k;b=66*k;}
-      else if(s===FRINGE){k=1+big*.06+fine*.04;r=88*k;g=154*k;b=56*k;}
-      else if(s===TEE){const st=(Math.floor((x+100)/1.6)&1)?1:-1;k=1+.05*st+fine*.04;r=100*k;g=168*k;b=62*k;}
-      else if(s===BUNKER){let bn=9;for(const bb of H.bunkers)bn=Math.min(bn,H.bunkerN(bb,x,z));const e=smooth(.8,1,bn);k=1+fine*.14+big*.06;r=lerp(226,186,e)*k;g=lerp(208,166,e)*k;b=lerp(160,120,e)*k;}
+        if(off<2.6&&c.s>H.fwStart-4){r=T.cut[0]*k;g=T.cut[1]*k;b=T.cut[2]*k;}else{const dd=smooth(10,60,off);r=lerp(T.rough[0],T.roughDeep[0],dd)*k;g=lerp(T.rough[1],T.roughDeep[1],dd)*k;b=lerp(T.rough[2],T.roughDeep[2],dd)*k;}}
+      else if(s===GREEN){const ch=((Math.floor(x/2.2)+Math.floor(z/2.2))&1)?1:-1;k=1+.025*ch+big*.05+fine*.03;r=T.green[0]*k;g=T.green[1]*k;b=T.green[2]*k;}
+      else if(s===FRINGE){k=1+big*.06+fine*.04;r=T.fringe[0]*k;g=T.fringe[1]*k;b=T.fringe[2]*k;}
+      else if(s===TEE){const st=(Math.floor((x+100)/1.6)&1)?1:-1;k=1+.05*st+fine*.04;r=T.tee[0]*k;g=T.tee[1]*k;b=T.tee[2]*k;}
+      else if(s===BUNKER){let bn=9;for(const bb of H.bunkers)bn=Math.min(bn,H.bunkerN(bb,x,z));const e=smooth(.8,1,bn);k=1+fine*.14+big*.06;r=lerp(T.sand[0],T.sandEdge[0],e)*k;g=lerp(T.sand[1],T.sandEdge[1],e)*k;b=lerp(T.sand[2],T.sandEdge[2],e)*k;}
       else if(s===WATER){r=40;g=72;b=62;}
-      else{k=1+big*.3+fine*.12;r=52*k;g=94*k;b=38*k;}
+      else{k=1+big*.3+fine*.12;r=T.oob[0]*k;g=T.oob[1]*k;b=T.oob[2]*k;}
       if(s!==WATER&&H.water.length){for(const w of H.water){const rn=H.waterN(w,x,z);if(rn<1.25){const m=1-smooth(1.0,1.25,rn);r=lerp(r,74,m*.6);g=lerp(g,96,m*.6);b=lerp(b,58,m*.6);}}}
       d[i]=r;d[i+1]=g;d[i+2]=b;d[i+3]=255;}}
   ctx.putImageData(img,0,0);
@@ -731,9 +797,10 @@ function buildScene(H,courseCanvas){
     sh.vertexShader='varying vec3 vWPos;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvWPos=(modelMatrix*vec4(transformed,1.0)).xyz;');
     sh.fragmentShader='uniform sampler2D detailMap;\nvarying vec3 vWPos;\n'+sh.fragmentShader.replace('#include <map_fragment>','#include <map_fragment>\nfloat dd=length(vWPos-cameraPosition);float dt=texture2D(detailMap,vWPos.xz*.37).r*.65+texture2D(detailMap,vWPos.xz*.061).r*.35;diffuseColor.rgb*=mix(1.0,.74+.5*dt,1.0-smoothstep(15.0,140.0,dd));');};
   grp.add(new THREE.Mesh(geo,tmat));
-  const outer=new THREE.Mesh(new THREE.PlaneGeometry(9000,9000).rotateX(-Math.PI/2),new THREE.MeshLambertMaterial({color:col('#3b6a2f')}));
+  const T=H.T;sky.material.uniforms.top.value.set(T.sky[0]);sky.material.uniforms.mid.value.set(T.sky[1]);sky.material.uniforms.bot.value.set(T.sky[2]);scene.fog.color.copy(col(T.sky[2]));
+  const outer=new THREE.Mesh(new THREE.PlaneGeometry(9000,9000).rotateX(-Math.PI/2),new THREE.MeshLambertMaterial({color:col(T.outer)}));
   outer.position.set((H.minX+H.maxX)/2,H.edgeH-.06,(H.minZ+H.maxZ)/2);grp.add(outer);
-  for(const w of H.water){const m=new THREE.Mesh(new THREE.CircleGeometry(1,64).rotateX(-Math.PI/2),new THREE.MeshPhongMaterial({color:col('#2c6684'),specular:col('#cfeaff'),shininess:90,transparent:true,opacity:.9}));
+  for(const w of H.water){const m=new THREE.Mesh(new THREE.CircleGeometry(1,64).rotateX(-Math.PI/2),new THREE.MeshPhongMaterial({color:col(T.water),specular:col('#cfeaff'),shininess:90,transparent:true,opacity:.9}));
     m.scale.set(w.rx*1.2,1,w.rz*1.2);m.position.set(w.x,w.level,w.z);grp.add(m);}
   // trees
   const all=H.trees.concat(H.deco),pines=all.filter(t=>t.pine),rounds=all.filter(t=>!t.pine);
@@ -742,15 +809,15 @@ function buildScene(H,courseCanvas){
   const pineM=new THREE.InstancedMesh(coneGeo,new THREE.MeshPhongMaterial({color:0xffffff,flatShading:true,shininess:4,specular:0x0a0a0a}),Math.max(1,pines.length));
   const roundM=new THREE.InstancedMesh(icoGeo,new THREE.MeshPhongMaterial({color:0xffffff,flatShading:true,shininess:4,specular:0x0a0a0a}),Math.max(1,rounds.length));
   const m4=new THREE.Matrix4(),qq=new THREE.Quaternion(),sv=new THREE.Vector3(),pv=new THREE.Vector3(),cc=new THREE.Color();
-  const pineCols=['#2c5537','#335e3c','#284c35','#3b6440'].map(col),roundCols=['#4c7a3a','#5a8941','#66903f','#7f8f3c','#4a6e36'].map(col);
-  all.forEach((t,i)=>{qq.setFromAxisAngle(sv.set(0,1,0),t.tint*TAU);m4.compose(pv.set(t.x,t.y-.2,t.z),qq,sv.set(1+t.tint*.4,t.pine?t.th+.5:t.th+t.r*.6,1+t.tint*.4));trunkM.setMatrixAt(i,m4);});
+  const pineCols=['#2c5537','#335e3c','#284c35','#3b6440'].map(col),roundCols=['#4c7a3a','#5a8941','#66903f','#7f8f3c','#4a6e36'].map(col),palmCols=['#3d7a34','#4b8a3c','#57923f'].map(col),shrubCols=T.shrubCols.map(col);
+  all.forEach((t,i)=>{qq.setFromAxisAngle(sv.set(0,1,0),t.tint*TAU);const tw=t.kind==='palm'?.55:t.kind==='shrub'?.0001:1+t.tint*.4;m4.compose(pv.set(t.x,t.y-.2,t.z),qq,sv.set(tw,t.pine?t.th+.5:t.kind==='palm'?t.th+.3:t.kind==='shrub'?.0001:t.th+t.r*.6,tw));trunkM.setMatrixAt(i,m4);});
   pines.forEach((t,i)=>{qq.setFromAxisAngle(sv.set(0,1,0),t.tint*TAU);m4.compose(pv.set(t.x,t.cb,t.z),qq,sv.set(t.r,t.h,t.r));pineM.setMatrixAt(i,m4);pineM.setColorAt(i,cc.copy(pineCols[(t.tint*4)|0]));});
-  rounds.forEach((t,i)=>{qq.setFromAxisAngle(sv.set(0,1,0),t.tint*TAU);m4.compose(pv.set(t.x,t.cy,t.z),qq,sv.set(t.r,t.r*.85,t.r));roundM.setMatrixAt(i,m4);roundM.setColorAt(i,cc.copy(roundCols[(t.tint*5)|0]));});
+  rounds.forEach((t,i)=>{qq.setFromAxisAngle(sv.set(0,1,0),t.tint*TAU);m4.compose(pv.set(t.x,t.cy,t.z),qq,sv.set(t.r,t.r*(t.kind==='palm'?.38:t.kind==='shrub'?.72:.85),t.r));roundM.setMatrixAt(i,m4);roundM.setColorAt(i,cc.copy(t.kind==='palm'?palmCols[(t.tint*3)|0]:t.kind==='shrub'?shrubCols[(t.tint*shrubCols.length)|0]:roundCols[(t.tint*5)|0]));});
   if(!pines.length)pineM.count=0;if(!rounds.length)roundM.count=0;
   grp.add(trunkM,pineM,roundM);
   // distant hills
-  const hr=rng(H.def.seed*31),cx=(H.minX+H.maxX)/2,cz=(H.minZ+H.maxZ)/2,hillMat=new THREE.MeshPhongMaterial({color:col('#4f7459'),flatShading:true,shininess:0,specular:0x000000});
-  for(let i=0;i<14;i++){const a=i/14*TAU+hr()*.4,rr=850+hr()*350,m=new THREE.Mesh(new THREE.IcosahedronGeometry(1,1),hillMat);m.scale.set(220+hr()*260,50+hr()*110,220+hr()*260);m.position.set(cx+Math.cos(a)*rr,H.edgeH-14,cz+Math.sin(a)*rr);grp.add(m);}
+  const hr=rng(H.def.seed*31),cx=(H.minX+H.maxX)/2,cz=(H.minZ+H.maxZ)/2,hillMat=new THREE.MeshPhongMaterial({color:col(T.hill),flatShading:true,shininess:0,specular:0x000000});
+  for(let i=0;i<14;i++){const a=i/14*TAU+hr()*.4,rr=850+hr()*350,m=new THREE.Mesh(new THREE.IcosahedronGeometry(1,1),hillMat);m.scale.set(220+hr()*260,T.hillH[0]+hr()*(T.hillH[1]-T.hillH[0]),220+hr()*260);m.position.set(cx+Math.cos(a)*rr,H.edgeH-14,cz+Math.sin(a)*rr);grp.add(m);}
   // tee markers
   const tm=new THREE.MeshLambertMaterial({color:col('#2f6fd6')});
   for(const sx of[-3,3]){const m=new THREE.Mesh(new THREE.SphereGeometry(.08,12,8),tm);m.position.set(sx,H.height(sx,2)+.07,2);grp.add(m);}
@@ -837,34 +904,45 @@ const sfx={ctx:null,on:true,noise:null,
 };
 
 /* background music: a bouncy 16-bar chiptune loop, scheduled ahead on the audio clock */
-const music={on:true,ctx:null,out:null,timer:0,step:0,nextT:0,
+/* background music: a slow-swing clubhouse tune on NES-style pulse waves, scheduled ahead on the audio clock */
+const music={on:true,ctx:null,out:null,timer:0,step:0,nextT:0,key:0,waves:null,
   boot(){this.ctx=sfx.ctx;try{const v=localStorage.getItem('harrowPinesMusic');if(v!==null)this.on=v==='1';}catch(e){}$('btnMusic').setAttribute('aria-pressed',String(this.on));if(this.on)this.start();},
-  start(){const c=this.ctx;if(!c||this.timer)return;this.out=c.createGain();this.out.gain.setValueAtTime(.0001,c.currentTime);this.out.gain.exponentialRampToValueAtTime(.06,c.currentTime+1.5);this.out.connect(c.destination);
+  makeWaves(){const c=this.ctx,mk=d=>{const N=40,re=new Float32Array(N),im=new Float32Array(N);for(let n=1;n<N;n++)re[n]=2/(n*Math.PI)*Math.sin(n*Math.PI*d);return c.createPeriodicWave(re,im);};this.waves={p25:mk(.25),p125:mk(.125),p50:mk(.5)};},
+  start(){const c=this.ctx;if(!c||this.timer)return;if(!this.waves)this.makeWaves();this.out=c.createGain();this.out.gain.setValueAtTime(.0001,c.currentTime);this.out.gain.exponentialRampToValueAtTime(.07,c.currentTime+2);this.out.connect(c.destination);
     this.nextT=c.currentTime+.15;this.step=0;this.timer=setInterval(()=>this.tick(),25);},
-  stop(){if(!this.timer)return;clearInterval(this.timer);this.timer=0;const o=this.out,c=this.ctx;o.gain.setTargetAtTime(.0001,c.currentTime,.15);setTimeout(()=>o.disconnect(),900);},
+  stop(){if(!this.timer)return;clearInterval(this.timer);this.timer=0;const o=this.out,c=this.ctx;o.gain.setTargetAtTime(.0001,c.currentTime,.2);setTimeout(()=>o.disconnect(),1200);},
   toggle(){this.on=!this.on;try{localStorage.setItem('harrowPinesMusic',this.on?'1':'0');}catch(e){}$('btnMusic').setAttribute('aria-pressed',String(this.on));if(this.on){sfx.init();this.ctx=sfx.ctx;this.start();}else this.stop();},
-  tick(){const c=this.ctx,e=60/116/2;if(this.nextT<c.currentTime-.2)this.nextT=c.currentTime+.05;
-    while(this.nextT<c.currentTime+.15){this.play(this.step,this.nextT,e);this.nextT+=e*(this.step%2===0?1.16:.84);this.step=(this.step+1)%(MUS.mel.length*8);}},
-  note(type,midi,t,dur,gain,cut){const c=this.ctx,o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter();o.type=type;o.frequency.value=440*Math.pow(2,(midi-69)/12);f.type='lowpass';f.frequency.value=cut||3000;
-    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(gain,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(f).connect(g).connect(this.out);o.start(t);o.stop(t+dur+.02);},
+  tick(){const c=this.ctx,e=60/94/2;if(this.nextT<c.currentTime-.2)this.nextT=c.currentTime+.05;
+    while(this.nextT<c.currentTime+.15){this.play(this.step,this.nextT,e);this.nextT+=e*(this.step%2===0?1.14:.86);this.step=(this.step+1)%(MUS.mel.length*8);}},
+  voice(wave,midi,t,dur,gain,cut,vib){const c=this.ctx,o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter(),fr=440*Math.pow(2,(midi+this.key-69)/12);
+    if(wave==='tri')o.type='triangle';else o.setPeriodicWave(this.waves[wave]);o.frequency.value=fr;
+    if(vib){const l=c.createOscillator(),lg=c.createGain();l.frequency.value=5.3;lg.gain.setValueAtTime(0,t);lg.gain.linearRampToValueAtTime(fr*.007,t+Math.min(dur*.6,.4));l.connect(lg).connect(o.frequency);l.start(t);l.stop(t+dur+.05);}
+    f.type='lowpass';f.frequency.value=cut;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(gain,t+.012);g.gain.setValueAtTime(gain*.85,t+Math.max(.02,dur*.5));g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(f).connect(g).connect(this.out);o.start(t);o.stop(t+dur+.05);},
   hit(freq,q,gain,dur,t,type){const c=this.ctx,s=c.createBufferSource();s.buffer=sfx.noise;const f=c.createBiquadFilter();f.type=type;f.frequency.value=freq;f.Q.value=q;const g=c.createGain();
     g.gain.setValueAtTime(gain,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);s.connect(f).connect(g).connect(this.out);s.start(t,Math.random()*.5);s.stop(t+dur+.02);},
-  play(s,t,e){const bar=s>>3,i=s&7,m=MUS.mel[bar][i];
-    if(m)this.note('square',m,t,e*(MUS.mel[bar][i+1]===0?1.7:.9),.22,2600);
-    if(i%2===0){const root=MUS.root[bar][i>>2],off=[0,7,9,7][i>>1]+(bar%8===7&&i===4?5:0);this.note('triangle',root+off,t,e*1.6,.5,900);}
-    if(i===2||i===6)MUS.chord[bar].forEach(n=>this.note('triangle',n,t,e*.7,.07,2200));
-    this.hit(8000,.7,i%2?.05:.09,.035,t,'highpass');
-    if(i===0||i===4){const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.frequency.setValueAtTime(130,t);o.frequency.exponentialRampToValueAtTime(48,t+.12);g.gain.setValueAtTime(.45,t);g.gain.exponentialRampToValueAtTime(.0001,t+.15);o.connect(g).connect(this.out);o.start(t);o.stop(t+.17);}
-    if(i===2||i===6)this.hit(1900,.9,.14,.09,t,'bandpass');}
+  play(s,t,e){const N=MUS.mel.length,bar=s>>3,i=s&7,row=MUS.mel[bar],m=row[i];
+    // lead: 25% pulse, held notes get a delayed vibrato
+    if(m>0){let h=1,bb=bar,ii=i+1;while(true){if(ii>7){bb=(bb+1)%N;ii=0;}if(MUS.mel[bb][ii]!==-1)break;h++;ii++;}this.voice('p25',m,t,e*h*.97,.13,2600,h>=2);}
+    // harp-like broken chord on a soft square
+    const ch=MUS.chord[bar][i>>2];this.voice('p50',ch[i%ch.length]+12,t,e*2.4,.032,1500,false);
+    // walking bass on the triangle channel
+    if(i%2===0){const beat=i>>1,half=beat>>1,root=MUS.root[bar][half],third=(ch[1]-ch[0]+12)%12,nextRoot=beat<2?MUS.root[bar][1]:MUS.root[(bar+1)%N][0];
+      const note=beat%2===0?root+(beat===2&&MUS.root[bar][1]===root?7:0):(nextRoot!==root?nextRoot-1:root+third);this.voice('tri',note,t,e*1.8,.34,900,false);}
+    // brushes
+    this.hit(6500,.6,(i===2||i===6)?.05:.02,i%2?.04:.07,t,'highpass');
+    if(i===6)this.hit(2400,6,.04,.03,t+e*.5,'bandpass');}
 };
-const C=[60,64,67],Am=[57,60,64],Dm=[62,65,69],G7=[59,62,65,67],A7=[57,61,64,67],Dm7=[62,65,69,72],F=[65,69,72],D7=[62,66,69,72];
+const Fmaj7=[53,57,60,64],Dm7=[50,53,57,60],Gm7=[55,58,62,65],C7=[48,52,55,58],Am7=[57,60,64,67],D7=[50,54,57,60],Bbmaj7=[58,62,65,69],Bbm6=[58,61,65,67];
+/* lead: MIDI notes on an eighth grid; -1 holds the previous note, 0 rests */
 const MUS={
-  mel:[[72,0,76,79,76,0,72,0],[69,0,72,76,74,72,69,0],[74,0,77,81,79,77,74,0],[71,74,77,74,71,0,67,0],
-       [72,0,76,79,84,0,79,0],[81,79,76,73,76,0,69,0],[74,77,81,77,79,77,74,71],[72,0,0,79,72,0,0,0],
-       [77,0,81,84,81,77,72,0],[76,0,79,84,79,76,72,0],[74,78,81,84,81,78,74,0],[79,0,77,74,71,0,74,0],
-       [77,81,84,81,77,0,72,74],[76,79,84,79,76,0,72,0],[74,77,79,83,81,79,77,74],[72,0,79,0,72,0,0,0]],
-  root:[[48,48],[45,45],[50,50],[43,43],[48,48],[45,45],[50,43],[48,48],[41,41],[48,48],[50,50],[43,43],[41,41],[48,48],[43,43],[48,48]],
-  chord:[C,Am,Dm,G7,C,A7,Dm7,C,F,C,D7,G7,F,C,G7,C]
+  mel:[[69,-1,-1,72,76,-1,74,72],[74,-1,-1,72,69,-1,-1,0],[70,-1,74,-1,77,-1,76,74],[76,-1,-1,74,72,-1,70,-1],
+       [72,-1,-1,76,79,-1,77,76],[78,-1,-1,74,72,-1,69,-1],[70,74,77,-1,76,-1,72,70],[69,-1,-1,-1,-1,-1,0,0],
+       [74,-1,77,-1,81,-1,-1,79],[77,-1,-1,73,74,-1,-1,0],[72,-1,76,-1,79,-1,-1,77],[78,-1,-1,-1,74,-1,72,-1],
+       [70,-1,-1,74,77,-1,79,-1],[76,-1,-1,72,70,-1,67,-1],[69,-1,72,-1,78,-1,77,-1],[74,-1,-1,-1,72,-1,-1,0]],
+  chord:[[Fmaj7,Fmaj7],[Dm7,Dm7],[Gm7,Gm7],[C7,C7],[Am7,Am7],[D7,D7],[Gm7,C7],[Fmaj7,Fmaj7],
+         [Bbmaj7,Bbmaj7],[Bbm6,Bbm6],[Am7,Am7],[D7,D7],[Gm7,Gm7],[C7,C7],[Fmaj7,D7],[Gm7,C7]],
+  root:[[41,41],[38,38],[43,43],[36,36],[45,45],[38,38],[43,36],[41,41],[46,46],[46,46],[45,45],[38,38],[43,43],[36,36],[41,38],[43,36]]
 };
 function buzz(p){try{if(navigator.vibrate)navigator.vibrate(p);}catch(e){}}
 /* ---------- game state ---------- */
@@ -879,7 +957,7 @@ function loadHole(i){
     const H=buildHole(def);game.H=H;
     const cv=paintCourse(H);
     if(holeScene)disposeScene(holeScene);holeScene=buildScene(H,cv);buildMinimap(H,cv);
-    const wr=def.range?0:Math.random();game.wind.mph=Math.round(wr*wr*14);game.wind.yaw=Math.random()*TAU;
+    const wr=def.range?0:Math.random();game.wind.mph=Math.round(wr*wr*H.T.windMax);music.key=H.T.music||0;game.wind.yaw=Math.random()*TAU;
     const ws=game.wind.mph/MS2MPH;game.wind.x=Math.sin(game.wind.yaw)*ws;game.wind.z=Math.cos(game.wind.yaw)*ws;
     game.ball={x:0,z:0,y:H.height(0,0)+BALL_R};game.strokes=0;game.shot=null;game.lastShot=null;tracer.mesh.visible=false;
     resetMonitor();
@@ -890,6 +968,7 @@ function loadHole(i){
   },30);
 }
 
+function surfName(s){return s===ROUGH&&game.H?game.H.T.roughName:SURF[s].name;}
 function playsLike(){const H=game.H,b=game.ball;return hdist(b,H.cup)+(H.height(H.cup.x,H.cup.z)-H.height(b.x,b.z));}
 function autoClub(dPin,lie){
   if(lie===GREEN)return PUTTER;
@@ -952,7 +1031,7 @@ function lieNote(){
   let eff='';
   if(!c.putt){const L=launchParams(1,0);const pct=Math.round((L.speed/c.speed-1)*100);if(pct<0)eff=' · '+pct+'% speed';}
   let pl='';if(!c.putt){const a=Math.round(hdist(b,H.cup)*M2YD),q=Math.round(playsLike()*M2YD);if(Math.abs(a-q)>=3)pl=' · plays '+q+' yds';}
-  $('lieNote').innerHTML=course.id==='range'?'<b>Range</b> · calm wind · '+((rangeData.clubs[game.club]||[]).length)+' swings logged':'<b>'+SURF[lie].name+'</b>'+eff+' · '+elev+pl;
+  $('lieNote').innerHTML=course.id==='range'?'<b>Range</b> · calm wind · '+((rangeData.clubs[game.club]||[]).length)+' swings logged':'<b>'+surfName(lie)+'</b>'+eff+' · '+elev+pl;
 }
 function launchParams(power,acc){
   const c=CLUBS[game.club],lie=game.lie;
@@ -1059,7 +1138,7 @@ function finishShot(){
     banner('Out of bounds','Stroke and distance. Replay from the same spot.',2200,'bad');
   }else{
     game.ball={x:rest.x,z:rest.z,y:0};const lie=H.surface(rest.x,rest.z),dp=hdist(rest,H.cup);
-    result=SURF[lie].name+' · '+(dp<27?Math.round(dp*M2FT)+' ft':Math.round(dp*M2YD)+' yds')+' left';
+    result=surfName(lie)+' · '+(dp<27?Math.round(dp*M2FT)+' ft':Math.round(dp*M2YD)+' yds')+' left';
     if((lie===GREEN||lie===FRINGE)&&dp<.76&&game.strokes<9){game.strokes++;stats.gimme=true;holeOut(stats,'Gimme, tapped in from '+Math.max(1,Math.round(dp*M2FT*12))+' in');return;}
     const yds=Math.round(total*M2YD);
     if(sim.lipped&&s.isPutt){banner('Lip out!',Math.round(dp*M2FT)+' ft coming back',1800,'bad');sfx.groan();}
@@ -1094,7 +1173,7 @@ function hud(){
   $('hNum').textContent=game.holeIdx+1;$('hName').textContent=H.name;$('hPar').textContent='Par '+H.par;$('hYds').textContent=Math.round(H.total*M2YD)+' yds';
   $('hShot').textContent=Math.min(game.strokes+1,10);
   const dp=hdist(game.ball,H.cup);$('hPin').textContent=dp<27?Math.round(dp*M2FT)+' ft':Math.round(dp*M2YD)+' yds';
-  $('hLie').textContent=SURF[game.lie].name;$('hTotal').textContent=relPar();
+  $('hLie').textContent=surfName(game.lie);$('hTotal').textContent=relPar();
   $('windMph').textContent=game.wind.mph;
 }
 function resetMonitor(){$('monitor').classList.add('empty');['sSpeed','sLaunch','sSpin','sApex','sCarry','sTotal','sOff','sDesc'].forEach(id=>$(id).textContent='—');$('monResult').textContent='Waiting for first shot';$('monitor').classList.add('dim');}
@@ -1271,15 +1350,15 @@ function showRangeCard(){
 function cardNext(){
   const el=$('cardOverlay'),mode=el.dataset.mode;el.hidden=true;
   if(mode==='peek'){game.state=game.prevState||'aim';return;}
-  if(mode==='final'){if(course.id==='harrow')clearSave();startMode(course.id);return;}
+  if(mode==='final'){if(COURSES[course.id])clearSave();startMode(course.id);return;}
   loadHole(game.holeIdx+1);
 }
 function readBest(){try{return+localStorage.getItem(course.bestKey||'harrowPinesBest')||0;}catch(e){return 0;}}
 function writeBest(v){try{if(course.bestKey)localStorage.setItem(course.bestKey,String(v));}catch(e){}}
 const SAVE_KEY='harrowPinesRound';
-function save(){if(course.id!=='harrow')return;try{const done=HOLES.every((h,i)=>game.scores[i]);if(done){localStorage.removeItem(SAVE_KEY);return;}
-  localStorage.setItem(SAVE_KEY,JSON.stringify({scores:game.scores,next:game.holeIdx+1}));}catch(e){}}
-function readSave(){try{const v=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(v&&Array.isArray(v.scores)&&v.next>0&&v.next<HOLES.length)return v;}catch(e){}return null;}
+function save(){if(!COURSES[course.id])return;try{const done=course.holes.every((h,i)=>game.scores[i]);if(done){localStorage.removeItem(SAVE_KEY);return;}
+  localStorage.setItem(SAVE_KEY,JSON.stringify({course:course.id,scores:game.scores,next:game.holeIdx+1}));}catch(e){}}
+function readSave(){try{const v=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(v&&Array.isArray(v.scores)){v.course=v.course||'harrow';const C=COURSES[v.course];if(C&&v.next>0&&v.next<C.holes.length)return v;}}catch(e){}return null;}
 function clearSave(){try{localStorage.removeItem(SAVE_KEY);}catch(e){}}
 
 /* ---------- input ---------- */
@@ -1416,12 +1495,12 @@ function startMode(id){
   game.scores=[];game.strokes=0;game.rangeInit=false;game.rangeShots=0;game.lastShot=null;
   if(id==='mine'){const m=buildMyCourse();course={id:'mine',name:'My Course',holes:m.holes,bestKey:'harrowPinesMineBest'};}
   else if(id==='range')course={id:'range',name:'Driving Range',holes:[RANGE_DEF]};
-  else course={id:'harrow',name:'Harrow Pines',holes:HOLES,bestKey:'harrowPinesBest'};
+  else course=COURSES[id]||COURSES.harrow;
   loadHole(0);
 }
 function startGame(){
   sfx.init();$('intro').hidden=true;$('hud').hidden=false;
-  if(pickMode==='harrow'&&resumeData){course={id:'harrow',name:'Harrow Pines',holes:HOLES,bestKey:'harrowPinesBest'};game.scores=resumeData.scores;const n=resumeData.next;resumeData=null;loadHole(n);firstStart=false;return;}
+  if(resumeData&&resumeData.course===pickMode){course=COURSES[pickMode];game.scores=resumeData.scores;const n=resumeData.next;resumeData=null;loadHole(n);firstStart=false;return;}
   if(pickMode==='harrow'&&firstStart&&game.H&&game.holeIdx===0&&game.strokes===0){firstStart=false;game.state='flyover';game.fly=0;banner('Hole 1',game.H.name+' · Par '+game.H.par+' · '+Math.round(game.H.total*M2YD)+' yds',3200);return;}
   firstStart=false;startMode(pickMode);
 }
@@ -1430,9 +1509,10 @@ function refreshIntro(){
   const n=rangeShotCount();$('rangeSub').textContent=n?n+' swings logged so far':'Unlimited balls, every swing logged';
   $('mineSub').textContent=n?'Par 3, 4 and 5 tailored from '+n+' range swings':'Par 3, 4 and 5. Hit range balls to tailor it';
   $('btnNew').hidden=true;let line='';
-  if(pickMode==='harrow'){if(resumeData){let rel=0;const pl=resumeData.scores.filter(Boolean).length;resumeData.scores.forEach((v,i)=>{if(v)rel+=v-HOLES[i].par;});
+  const CO=COURSES[pickMode];
+  if(CO){if(resumeData&&resumeData.course===pickMode){let rel=0;const pl=resumeData.scores.filter(Boolean).length;resumeData.scores.forEach((v,i)=>{if(v&&CO.holes[i])rel+=v-CO.holes[i].par;});
       $('btnStart').textContent='Resume at hole '+(resumeData.next+1);$('btnNew').hidden=false;line=pl+' hole'+(pl===1?'':'s')+' played, '+(rel===0?'E':(rel>0?'+'+rel:'−'+(-rel)));}
-    else{$('btnStart').textContent='Tee off';const b=+(localStorage.getItem('harrowPinesBest')||0);if(b)line='Best round: '+b;}}
+    else{$('btnStart').textContent='Tee off';let b=0;try{b=+(localStorage.getItem(CO.bestKey)||0);}catch(e){}if(b)line='Best round: '+b;}}
   else if(pickMode==='mine'){$('btnStart').textContent='Play My Course';const b=+(localStorage.getItem('harrowPinesMineBest')||0);line=(n?'':'No range data yet, so it uses standard distances. ')+(b?'Best: '+b:'');}
   else{$('btnStart').textContent='Hit balls';line='Calm wind. Card shows your numbers.';}
   $('bestLine').textContent=line;
@@ -1443,7 +1523,7 @@ function showIntro(){
 document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{pickMode=b.dataset.mode;refreshIntro();});
 let resumeData=null;
 $('btnStart').onclick=startGame;
-$('btnNew').onclick=()=>{resumeData=null;clearSave();firstStart=false;startMode('harrow');$('intro').hidden=true;$('hud').hidden=false;sfx.init();};
+$('btnNew').onclick=()=>{resumeData=null;clearSave();firstStart=false;startMode(pickMode);$('intro').hidden=true;$('hud').hidden=false;sfx.init();};
 $('btnMenu').onclick=showIntro;
 
 function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<h?64:52;camera.updateProjectionMatrix();if(game.H&&miniBase&&holeScene){}}
@@ -1458,7 +1538,7 @@ addEventListener('resize',resize);resize();
   resumeData=readSave();refreshIntro();
   requestAnimationFrame(frame);
 })();
-window.__golf={suggestPower,buildMyCourse,clubStats,recordRange,startMode,course:()=>course,rangeData:()=>rangeData,music,sfx,nudgeAim,aimDist,holeOut,readSave,game,simulate,CLUBS,HOLES,buildHole,launchParams,paintCourse,buildScene,prepareShot,executeShot,onClubChange};
+window.__golf={COURSES,THEMES,suggestPower,buildMyCourse,clubStats,recordRange,startMode,course:()=>course,rangeData:()=>rangeData,music,sfx,nudgeAim,aimDist,holeOut,readSave,game,simulate,CLUBS,HOLES,buildHole,launchParams,paintCourse,buildScene,prepareShot,executeShot,onClubChange};
 })();
 </script>
 </body>
