@@ -56,3 +56,4 @@ Range data and best scores live in your browser's local storage.
 - 8-bit music with its own tune per course: slow-swing clubhouse jazz at Harrow Pines, a Celtic jig over a drone at Saltmarsh Links, a spaghetti-western ballad at Red Mesa, a calliope waltz at mini golf, and a mellow bossa nova for My Course and the range
 - Scorecard, best round, and round resume saved in the browser
 - Compact layout and touch controls on phones
+- Graphics: real-time soft sun shadows, filmic tone mapping, a sky with sun glow and drifting clouds, layered trees with wind sway, swaying grass tufts around the camera, rippling water, and a High / Medium / Low quality setting (Medium by default on phones)
