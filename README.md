@@ -1,6 +1,6 @@
 # Harrow Pines Golf
 
-A golf game that runs in the browser: the six-hole, par-23 Harrow Pines course, a driving range, and **My Course**, three holes built from your own range data. It's a single HTML file built on [Three.js](https://threejs.org/) r128 (loaded from cdnjs), with no build step.
+A golf game that runs in the browser: three 9-hole courses, a driving range, and **My Course**, three holes built from your own range data. It's a single HTML file built on [Three.js](https://threejs.org/) r128 (loaded from cdnjs), with no build step.
 
 ## Play
 
@@ -10,7 +10,11 @@ Or open `index.html` locally in a browser, or serve the folder with any static h
 
 ## Modes
 
-- **Harrow Pines**: six holes, par 23. Progress saves after each hole.
+- **Harrow Pines**: pine-lined parkland, 9 holes, par 35.
+- **Saltmarsh Links**: seaside dunes, golden fescue, pot bunkers, sea inlets and stronger wind; 9 holes, par 36.
+- **Red Mesa**: desert target golf with sandy scrub, palms, red buttes and elevated tees; 9 holes, par 36.
+
+Round progress on any course saves after each hole.
 - **Driving Range**: unlimited balls in calm wind, with staggered target flags at 50 to 250 yds. Every full swing (80%+ power) is logged per club, keeping the last 40. **Card** shows your carry, spread and left/right bias.
 - **My Course**: a par 3, 4 and 5 rebuilt from your range numbers each time you play:
   - the par 3 plays at the carry of your most accurate iron or wedge
@@ -42,6 +46,6 @@ Range data and best scores live in your browser's local storage.
 - Putting: slope grid, putts pre-aimed for the break, an aim ring, a read line, and gimmes inside 2.5 ft
 - A gold PIN marker on the power gauge showing roughly the power that carries to the pin
 - Shot callouts with synthesized crowd applause and groans
-- A chiptune background music loop
+- A slow-swing 8-bit clubhouse tune (NES-style pulse lead, walking triangle bass, harp-like arpeggios), in a different key per course
 - Scorecard, best round, and round resume saved in the browser
 - Compact layout and touch controls on phones
