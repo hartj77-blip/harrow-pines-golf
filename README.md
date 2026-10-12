@@ -37,6 +37,7 @@ Range data and best scores live in your browser's local storage.
 | ← → or drag on the course | Aim (hold Shift for fine aim) |
 | ↑ ↓ | Change club |
 | Q / E | Shape the shot: draw or fade |
+| Scroll wheel / trackpad | Scroll back to load the swing, then scroll forward fast through the ball; forward speed is power. On putts, how far you scroll back sets the strength. Sideways trackpad drift curves the shot. |
 | Space | Keyboard swing: hold for power, release, tap as the needle crosses the white zone |
 | V | Look at the landing area |
 | C | Scorecard |
