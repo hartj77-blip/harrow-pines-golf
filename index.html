@@ -719,10 +719,10 @@ function buildMiniHole(def){
   H.greenN=()=>.5;H.halfWidth=()=>1;H.edgeDist=()=>99;
   return H;
 }
-/* ball against walls, block corners, posts and windmill blades (bounce keeps 72% of the speed into the wall) */
+/* ball against walls, block corners, posts and windmill blades (bounce keeps 90% of the speed into the wall, close to a mirror angle) */
 const MC={x:0,z:0,vx:0,vz:0,hit:false};
 function miniCollide(H,time){
-  const E=.72,R=BALL_R;MC.hit=false;
+  const E=.9,R=BALL_R;MC.hit=false;
   for(const w of H.walls){const ex=w.bx-w.ax,ez=w.bz-w.az,t=((MC.x-w.ax)*ex+(MC.z-w.az)*ez)/w.l2;if(t<0||t>1)continue;
     const sd=(MC.x-w.ax)*w.nx+(MC.z-w.az)*w.nz;if(sd<R&&sd>-.06){const vn=MC.vx*w.nx+MC.vz*w.nz;if(vn<0){MC.vx-=(1+E)*vn*w.nx;MC.vz-=(1+E)*vn*w.nz;if(-vn>.12)MC.hit=true;}MC.x+=(R-sd)*w.nx;MC.z+=(R-sd)*w.nz;}}
   const circ=(cx,cz,r)=>{const dx=MC.x-cx,dz=MC.z-cz,d=Math.hypot(dx,dz),m=r+R;if(d<m&&d>1e-6){const nx=dx/d,nz=dz/d,vn=MC.vx*nx+MC.vz*nz;if(vn<0){MC.vx-=(1+E)*vn*nx;MC.vz-=(1+E)*vn*nz;if(-vn>.12)MC.hit=true;}MC.x=cx+nx*m;MC.z=cz+nz*m;}};
@@ -887,7 +887,7 @@ function Ribbon(max,color,opacity){
 }
 const tracer=Ribbon(2400,col('#ff5b3a'),.95);
 const predArc=Ribbon(1200,0xffffff,.36);
-const puttLine=Ribbon(400,0xffffff,.7);
+const puttLine=Ribbon(800,0xffffff,.7);
 
 const ball=new THREE.Mesh(new THREE.SphereGeometry(BALL_R,20,14),new THREE.MeshPhongMaterial({color:0xffffff,shininess:70,emissive:0x222222}));
 scene.add(ball);
@@ -1306,8 +1306,11 @@ function refreshPrediction(power){
   if(key===game.predKey)return;game.predKey=key;
   if(c.putt){
     const pw=power>0?power:clamp(game.puttDist/game.puttFull,0,1),L=launchParams(pw,0);
-    const r=simulate(H,Object.assign({},L,{x:b.x,y:b.y,z:b.z,noTrees:true,t0:game.mclock||0})),f=r.frames,n=f.length/3,show=Math.max(2,Math.floor(n*(H.mini?.45:.7))),pts=[];
-    for(let i=0;i<show;i+=2)pts.push(f[i*3],H.height(f[i*3],f[i*3+2])+.02,f[i*3+2]);
+    const r=simulate(H,Object.assign({},L,{x:b.x,y:b.y,z:b.z,noTrees:true,t0:game.mclock||0})),f=r.frames,n=f.length/3,pts=[];
+    // mini golf: always show the line through the first two bank shots so the rebound angle is visible
+    let show=Math.max(2,Math.floor(n*(H.mini?.45:.7)));if(H.mini&&r.events.length)show=Math.min(n,Math.max(show,r.events[Math.min(1,r.events.length-1)]+28));
+    const stp=show>390?2:1,ev=new Set(r.events);
+    for(let i=0;i<show;i++)if(i%stp===0||ev.has(i)||ev.has(i+1))pts.push(f[i*3],H.height(f[i*3],f[i*3+2])+.02,f[i*3+2]);
     game.puttPts=pts;game.pred=null;predArc.mesh.visible=false;
     {const d=game.puttReal,tx=b.x+Math.sin(game.yaw)*d,tz=b.z+Math.cos(game.yaw)*d;setRing(H,tx,tz,.32);}
     return;
