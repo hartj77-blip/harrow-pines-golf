@@ -19,7 +19,7 @@ Round progress on any course saves after each hole (single player).
 ## Multiplayer and settings
 
 - **Pass and play** for up to 4 players on one device: name each player on the start screen. Each gets a coloured ball; tee shots go in honours order (best score on the last hole first), then the player farthest from the hole plays next. The scorecard shows every player and names the winner.
-- **Settings** (start screen, or Setup in game): **Left-handed** mirrors the layout so the swing pad sits on the other side and flips draw/fade and hook/slice; **Gimmes** turns automatic tap-ins inside 2.5 ft on or off.
+- **Settings** (start screen, or Setup in game): **Sound effects** and **Music** on/off (also M and N), **Left-handed** mirrors the layout so the swing pad sits on the other side and flips draw/fade and hook/slice; **Gimmes** turns automatic tap-ins inside 2.5 ft on or off.
 - **Driving Range**: unlimited balls in calm wind, with staggered target flags at 50 to 250 yds. Every full swing (80%+ power) is logged per club, keeping the last 40. **Card** shows your carry, spread and left/right bias.
 - **My Course**: a par 3, 4 and 5 rebuilt from your range numbers each time you play:
   - the par 3 plays at the carry of your most accurate iron or wedge
@@ -40,8 +40,8 @@ Range data and best scores live in your browser's local storage.
 | Space | Keyboard swing: hold for power, release, tap as the needle crosses the white zone |
 | V | Look at the landing area |
 | C | Scorecard |
-| M | Sound effects on/off |
-| N | Music on/off |
+| M | Sound effects on/off (also in Settings) |
+| N | Music on/off (also in Settings) |
 
 ## What's in it
 
