@@ -713,8 +713,10 @@ function buildMiniHole(def){
   H.outlineWalls=H.walls.length;
   for(const b of H.blocks){const c=[[b.x0,b.z0],[b.x1,b.z0],[b.x1,b.z1],[b.x0,b.z1]],out=(x,z)=>!(x>b.x0&&x<b.x1&&z>b.z0&&z<b.z1);
     for(let i=0;i<4;i++){const a=c[i],d=c[(i+1)%4];addWall(a[0],a[1],d[0],d[1],out);H.corners.push({x:a[0],z:a[1]});}}
+  // surface height from the features alone (no drop at the border), used for slopes so walls don't read as hills
+  H.hIn=(x,z)=>{let h=0;for(const f of H.feat){if(f.t==='bump'){const dx=x-f.x,dz=z-f.z;h+=f.h*Math.exp(-(dx*dx+dz*dz)/(f.r*f.r));}else if(f.t==='ramp')h+=f.h*smooth(f.z0,f.z1,z);}return h;};
   H.height=(x,z)=>{if(!inside(x,z))return -.02;let h=0;for(const f of H.feat){if(f.t==='bump'){const dx=x-f.x,dz=z-f.z;h+=f.h*Math.exp(-(dx*dx+dz*dz)/(f.r*f.r));}else if(f.t==='ramp')h+=f.h*smooth(f.z0,f.z1,z);}return h;};
-  H.normal=(x,z,out)=>{const e=.04,hx=(H.height(x+e,z)-H.height(x-e,z))/(2*e),hz=(H.height(x,z+e)-H.height(x,z-e))/(2*e),l=Math.hypot(hx,1,hz);out.x=-hx/l;out.y=1/l;out.z=-hz/l;return out;};
+  H.normal=(x,z,out)=>{const e=.04,hx=(H.hIn(x+e,z)-H.hIn(x-e,z))/(2*e),hz=(H.hIn(x,z+e)-H.hIn(x,z-e))/(2*e),l=Math.hypot(hx,1,hz);out.x=-hx/l;out.y=1/l;out.z=-hz/l;return out;};
   H.surface=(x,z)=>{if(!inside(x,z)||inBlock(x,z))return OOB;for(const w of H.water)if(Math.hypot(x-w.x,z-w.z)<w.r)return WATER;return GREEN;};
   H.greenN=()=>.5;H.halfWidth=()=>1;H.edgeDist=()=>99;
   return H;
@@ -791,7 +793,7 @@ const _n={x:0,y:1,z:0};
 function simulate(H,o){
   const frames=[],wind=o.wind||{x:0,z:0},cup=H.cup;
   let x=o.x,y=o.y,z=o.z,vx=o.vx,vy=o.vy,vz=o.vz,wx=o.wx,wy=o.wy,wz=o.wz;
-  const events=[];let mode=o.putt?1:0,t=0,step=0,landIdx=-1,carryPos=null,apex=y,result=null,bounces=0,lipped=false,lastTree=-1,descent=0,firstSurf=null;
+  const events=[];let stallX=o.x,stallZ=o.z,stallN=0;let mode=o.putt?1:0,t=0,step=0,landIdx=-1,carryPos=null,apex=y,result=null,bounces=0,lipped=false,lastTree=-1,descent=0,firstSurf=null;
   frames.push(x,y,z);
   while(!result){
     if(mode===0){
@@ -836,6 +838,7 @@ function simulate(H,o){
       const gtx=G*_n.y*_n.x,gty=-G+G*_n.y*_n.y,gtz=G*_n.y*_n.z,gtm=Math.hypot(gtx,gty,gtz),fr=P.roll*G*_n.y;
       let sp=Math.hypot(vx,vy,vz);
       if(sp<.04&&gtm<fr*1.3){result={type:'rest'};break;}
+      if(++stallN>=240){if(Math.hypot(x-stallX,z-stallZ)<.01){result={type:'rest'};break;}stallN=0;stallX=x;stallZ=z;}
       vx+=gtx*DT;vy+=gty*DT;vz+=gtz*DT;sp=Math.hypot(vx,vy,vz);const dec=fr*DT;
       if(sp<=dec){vx=vy=vz=0;}else{const f=(sp-dec)/sp;vx*=f;vy*=f;vz*=f;}
       x+=vx*DT;z+=vz*DT;
