@@ -14,7 +14,12 @@ Or open `index.html` locally in a browser, or serve the folder with any static h
 - **Saltmarsh Links**: seaside dunes, golden fescue, pot bunkers, sea inlets and stronger wind; 9 holes, par 36.
 - **Red Mesa**: desert target golf with sandy scrub, palms, red buttes and elevated tees; 9 holes, par 36.
 
-Round progress on any course saves after each hole.
+Round progress on any course saves after each hole (single player).
+
+## Multiplayer and settings
+
+- **Pass and play** for up to 4 players on one device: name each player on the start screen. Each gets a coloured ball; tee shots go in honours order (best score on the last hole first), then the player farthest from the hole plays next. The scorecard shows every player and names the winner.
+- **Settings** (start screen, or Setup in game): **Left-handed** mirrors the layout so the swing pad sits on the other side and flips draw/fade and hook/slice; **Gimmes** turns automatic tap-ins inside 2.5 ft on or off.
 - **Driving Range**: unlimited balls in calm wind, with staggered target flags at 50 to 250 yds. Every full swing (80%+ power) is logged per club, keeping the last 40. **Card** shows your carry, spread and left/right bias.
 - **My Course**: a par 3, 4 and 5 rebuilt from your range numbers each time you play:
   - the par 3 plays at the carry of your most accurate iron or wedge
@@ -46,6 +51,6 @@ Range data and best scores live in your browser's local storage.
 - Putting: slope grid, putts pre-aimed for the break, an aim ring, a read line, and gimmes inside 2.5 ft
 - A gold PIN marker on the power gauge showing roughly the power that carries to the pin
 - Shot callouts with synthesized crowd applause and groans
-- A slow-swing 8-bit clubhouse tune (NES-style pulse lead, walking triangle bass, harp-like arpeggios), in a different key per course
+- 8-bit music with its own tune per course: slow-swing clubhouse jazz at Harrow Pines, a Celtic jig over a drone at Saltmarsh Links, a spaghetti-western ballad at Red Mesa, and a mellow bossa nova for My Course and the range
 - Scorecard, best round, and round resume saved in the browser
 - Compact layout and touch controls on phones
