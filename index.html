@@ -284,8 +284,6 @@ table.sc{border-collapse:collapse;width:100%;font-size:16px;min-width:440px}
     <div class="tools">
       <button id="btnView" aria-pressed="false" title="Look at the landing area (V)">Target</button>
       <button id="btnCard" title="Scorecard (C)">Card</button>
-      <button id="btnSound" aria-pressed="true" title="Sound effects (M)">Sound</button>
-      <button id="btnMusic" aria-pressed="true" title="Music (N)">Music</button>
       <button id="btnGear" title="Settings">Setup</button>
       <button id="btnMenu" title="Back to the start screen">Menu</button>
     </div>
@@ -367,7 +365,7 @@ table.sc{border-collapse:collapse;width:100%;font-size:16px;min-width:440px}
       <kbd>Space</kbd><span>Keyboard option: hold to load power, release, then tap as the needle crosses the white zone</span>
       <kbd>Q · E</kbd><span>Shape the shot: draw or fade</span>
       <kbd>V</kbd><span>Look at the landing area</span>
-      <kbd>M · N</kbd><span>Sound effects · music on or off</span>
+      <kbd>M · N</kbd><span>Sound effects · music on or off (also in Settings)</span>
     </div>
     <div class="row-btns">
       <button class="primary" id="btnStart">Tee off</button>
@@ -383,6 +381,8 @@ table.sc{border-collapse:collapse;width:100%;font-size:16px;min-width:440px}
     <div class="eyebrow">Settings</div>
     <h2>Your setup</h2>
     <label class="toggle"><input type="checkbox" id="setLefty"><span><b>Left-handed</b><small>Mirrors the screen layout so the swing pad sits on the other side, and flips draw, fade, hook and slice.</small></span></label>
+    <label class="toggle"><input type="checkbox" id="setSound"><span><b>Sound effects</b><small>Club strikes, the crowd, splashes and the cup rattle. Shortcut: M.</small></span></label>
+    <label class="toggle"><input type="checkbox" id="setMusic"><span><b>Music</b><small>An 8-bit tune for each course. Shortcut: N.</small></span></label>
     <label class="toggle"><input type="checkbox" id="setGimmes"><span><b>Gimmes</b><small>Putts that stop inside 2.5 ft are tapped in automatically for one stroke.</small></span></label>
     <div class="row-btns"><button class="primary" id="setDone">Done</button></div>
   </div>
@@ -919,7 +919,7 @@ function drawMinimap(){
 }
 
 /* ---------- sound ---------- */
-const sfx={ctx:null,on:true,noise:null,
+const sfx={ctx:null,on:(()=>{try{return localStorage.getItem('harrowPinesSound')!=='0';}catch(e){return true;}})(),noise:null,
   init(){if(this.ctx)return;try{this.ctx=new(window.AudioContext||window.webkitAudioContext)();const n=this.ctx.sampleRate;this.noise=this.ctx.createBuffer(1,n,n);const d=this.noise.getChannelData(0);for(let i=0;i<n;i++)d[i]=Math.random()*2-1;
     this.applauseBuf=this.makeApplause();this.verb=this.ctx.createConvolver();this.verb.buffer=this.makeVerb();const vg=this.ctx.createGain();vg.gain.value=.35;this.verb.connect(vg).connect(this.ctx.destination);
     music.boot();}catch(e){this.ctx=null;}},
@@ -956,12 +956,12 @@ const sfx={ctx:null,on:true,noise:null,
 /* background music: a bouncy 16-bar chiptune loop, scheduled ahead on the audio clock */
 /* background music: a slow-swing clubhouse tune on NES-style pulse waves, scheduled ahead on the audio clock */
 const music={on:true,ctx:null,out:null,timer:0,step:0,nextT:0,key:0,waves:null,
-  boot(){this.ctx=sfx.ctx;try{const v=localStorage.getItem('harrowPinesMusic');if(v!==null)this.on=v==='1';}catch(e){}$('btnMusic').setAttribute('aria-pressed',String(this.on));if(this.on)this.start();},
+  boot(){this.ctx=sfx.ctx;try{const v=localStorage.getItem('harrowPinesMusic');if(v!==null)this.on=v==='1';}catch(e){}syncAudioSwitches();if(this.on)this.start();},
   makeWaves(){const c=this.ctx,mk=d=>{const N=40,re=new Float32Array(N),im=new Float32Array(N);for(let n=1;n<N;n++)re[n]=2/(n*Math.PI)*Math.sin(n*Math.PI*d);return c.createPeriodicWave(re,im);};this.waves={p25:mk(.25),p125:mk(.125),p50:mk(.5)};},
   start(){const c=this.ctx;if(!c||this.timer)return;if(!this.waves)this.makeWaves();this.out=c.createGain();this.out.gain.setValueAtTime(.0001,c.currentTime);this.out.gain.exponentialRampToValueAtTime(.07,c.currentTime+2);this.out.connect(c.destination);
     this.nextT=c.currentTime+.15;this.step=0;this.timer=setInterval(()=>this.tick(),25);},
   stop(){if(!this.timer)return;clearInterval(this.timer);this.timer=0;const o=this.out,c=this.ctx;o.gain.setTargetAtTime(.0001,c.currentTime,.2);setTimeout(()=>o.disconnect(),1200);},
-  toggle(){this.on=!this.on;try{localStorage.setItem('harrowPinesMusic',this.on?'1':'0');}catch(e){}$('btnMusic').setAttribute('aria-pressed',String(this.on));if(this.on){sfx.init();this.ctx=sfx.ctx;this.start();}else this.stop();},
+  toggle(){this.on=!this.on;try{localStorage.setItem('harrowPinesMusic',this.on?'1':'0');}catch(e){}syncAudioSwitches();if(this.on){sfx.init();this.ctx=sfx.ctx;this.start();}else this.stop();},
   songId:'parkland',
   setSong(id){if(SONGS[id]&&this.songId!==id){this.songId=id;this.step=0;}},
   tick(){const S=SONGS[this.songId],c=this.ctx,e=60/S.bpm/2;if(this.nextT<c.currentTime-.2)this.nextT=c.currentTime+.05;
@@ -1529,11 +1529,16 @@ addEventListener('blur',()=>{for(const k in keys)keys[k]=false;hold.left=hold.ri
 function changeClub(d){if(game.state!=='aim')return;const n=clamp(game.club+d,0,course.id==='range'?PUTTER-1:PUTTER);if(CLUBS[n].tee&&game.lie!==TEE&&d<0&&n===0){}game.club=n;onClubChange();}
 function setShape(s){if(CLUBS[game.club].putt)return;game.shape=s;document.querySelectorAll('#shapeRow button').forEach(b=>b.classList.toggle('on',+b.dataset.shape===s));game.predKey='';}
 function toggleView(){if(CLUBS[game.club].putt)return;game.view=!game.view;$('btnView').setAttribute('aria-pressed',String(game.view));camK=2.5;}
-function toggleSound(){sfx.on=!sfx.on;$('btnSound').setAttribute('aria-pressed',String(sfx.on));}
+function toggleSound(){sfx.on=!sfx.on;try{localStorage.setItem('harrowPinesSound',sfx.on?'1':'0');}catch(e){}syncAudioSwitches();}
+function syncAudioSwitches(){$('setSound').checked=sfx.on;$('setMusic').checked=music.on;}
+try{const v=localStorage.getItem('harrowPinesMusic');if(v!==null)music.on=v==='1';}catch(e){}
+$('setSound').onchange=e=>{if(e.target.checked!==sfx.on)toggleSound();};
+$('setMusic').onchange=e=>{if(e.target.checked!==music.on)music.toggle();};
+syncAudioSwitches();
 function peekCard(){if(game.state!=='aim'&&game.state!=='result')return;game.prevState=game.state==='result'?'aim':game.state;if(game.state==='result')nextTurn();game.state='card';showCard('peek');}
 $('clubPrev').onclick=()=>changeClub(-1);$('clubNext').onclick=()=>changeClub(1);
 document.querySelectorAll('#shapeRow button').forEach(b=>b.onclick=()=>{if(game.state==='aim')setShape(+b.dataset.shape);});
-$('btnView').onclick=toggleView;$('btnSound').onclick=toggleSound;$('btnMusic').onclick=()=>music.toggle();$('btnCard').onclick=peekCard;
+$('btnView').onclick=toggleView;$('btnCard').onclick=peekCard;
 $('cardNext').onclick=cardNext;$('cardClose').onclick=cardNext;
 function bindHold(el,down,up){el.addEventListener('pointerdown',e=>{e.preventDefault();try{el.setPointerCapture(e.pointerId);}catch(_){}down();});['pointerup','pointercancel','lostpointercapture'].forEach(t=>el.addEventListener(t,up));}
 bindHold($('meter'),swingPress,swingRelease);
@@ -1672,7 +1677,7 @@ function renderPlayers(){const n=playersCfg.n;document.querySelectorAll('#pCount
     box.appendChild(d);const inp=d.querySelector('input');inp.value=playersCfg.names[i]||'Player '+(i+1);inp.addEventListener('input',()=>{playersCfg.names[i]=inp.value;savePlayersCfg();});inp.addEventListener('keydown',e=>e.stopPropagation());}
   box.hidden=n===1;$('playersBox').hidden=pickMode==='range';$('pNote').textContent=n===1?'Pass and play on this device':n+' players take turns on this device';}
 document.querySelectorAll('#pCount button').forEach(b=>b.onclick=()=>{playersCfg.n=+b.dataset.n;savePlayersCfg();renderPlayers();refreshIntro();});
-function openSettings(){$('setLefty').checked=!!settings.lefty;$('setGimmes').checked=!!settings.gimmes;$('settingsOverlay').hidden=false;setTimeout(()=>$('setDone').focus(),50);}
+function openSettings(){syncAudioSwitches();$('setLefty').checked=!!settings.lefty;$('setGimmes').checked=!!settings.gimmes;$('settingsOverlay').hidden=false;setTimeout(()=>$('setDone').focus(),50);}
 function closeSettings(){$('settingsOverlay').hidden=true;}
 $('setLefty').onchange=e=>{settings.lefty=e.target.checked;saveSettings();game.predKey='';};
 $('setGimmes').onchange=e=>{settings.gimmes=e.target.checked;saveSettings();};
