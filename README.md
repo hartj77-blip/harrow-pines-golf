@@ -14,6 +14,7 @@ Or open `index.html` locally in a browser, or serve the folder with any static h
 - **Saltmarsh Links**: seaside dunes, golden fescue, pot bunkers, sea inlets and stronger wind; 9 holes, par 36.
 - **Red Mesa**: desert target golf with sandy scrub, palms, red buttes and elevated tees; 9 holes, par 36.
 - **Hollow Mini Golf**: 9 crazy-golf holes, par 22, putter only. Carpet lanes with wooden borders you bank off, posts, a windmill whose sails block the tunnel (time it), a volcano with the cup on top, a ramp, a pond (stroke and replay) and a bank-shot vault. 6-stroke maximum per hole; plays to a carnival waltz.
+- **Glow Golf**: a second mini course, played at night under blacklight, par 24. Neon walls, speckled carpet, a starry sky and new pieces: portals that warp the ball across the hole, sliding doors, a spinning bar, pinball bumpers that kick the ball away, speed strips, an ice rink, sand traps and an island green with a narrow bridge. Plays to a synthwave track.
 
 Round progress on any course saves after each hole (single player).
 
@@ -53,7 +54,7 @@ Range data and best scores live in your browser's local storage.
 - Putting: slope grid, putts pre-aimed for the break, an aim ring, a read line, and gimmes inside 2.5 ft
 - A gold PIN marker on the power gauge showing roughly the power that carries to the pin
 - Shot callouts with synthesized crowd applause and groans
-- 8-bit music with its own tune per course: slow-swing clubhouse jazz at Harrow Pines, a Celtic jig over a drone at Saltmarsh Links, a spaghetti-western ballad at Red Mesa, a calliope waltz at mini golf, and a mellow bossa nova for My Course and the range
+- 8-bit music with its own tune per course: slow-swing clubhouse jazz at Harrow Pines, a Celtic jig over a drone at Saltmarsh Links, a spaghetti-western ballad at Red Mesa, a calliope waltz at mini golf, synthwave at Glow Golf, and a mellow bossa nova for My Course and the range
 - Scorecard, best round, and round resume saved in the browser
 - Compact layout and touch controls on phones
 - Graphics: real-time soft sun shadows, filmic tone mapping, a sky with sun glow and drifting clouds, layered trees with wind sway, swaying grass tufts around the camera, rippling water, and a High / Medium / Low quality setting (Medium by default on phones)
