@@ -1,6 +1,6 @@
 # Harrow Pines Golf
 
-A golf game that runs in the browser: three 9-hole courses, a driving range, and **My Course**, three holes built from your own range data. It's a single HTML file built on [Three.js](https://threejs.org/) r128 (loaded from cdnjs), with no build step.
+A golf game that runs in the browser: three 9-hole courses, a driving range, and **My Course**, three holes built from your own range data. It's a single HTML file built on [Three.js](https://threejs.org/) r128 (bundled in `lib/three.min.js`, MIT licensed), with no build step. If the browser can't run WebGL, the page explains why instead of showing a blank screen.
 
 ## Play
 
@@ -58,3 +58,13 @@ Range data and best scores live in your browser's local storage.
 - Scorecard, best round, and round resume saved in the browser
 - Compact layout and touch controls on phones
 - Graphics: real-time soft sun shadows, filmic tone mapping, a sky with sun glow and drifting clouds, layered trees with wind sway, swaying grass tufts around the camera, rippling water, and a High / Medium / Low quality setting (Medium by default on phones)
+
+## Testing
+
+`tests/playthrough.js` plays every course hole by hole in a headless browser with a simple bot: all five 9-hole courses, a 3-player pass-and-play round, and My Course. It also builds My Course from 40 random range logs and checks the start screen with browser storage blocked. It checks that every hole finishes, scores and totals add up, the ball never ends up in water or out of bounds, and nothing logs errors.
+
+```bash
+npm i -g playwright && npx playwright install chromium   # once
+node tests/playthrough.js           # everything (slow without a GPU)
+node tests/playthrough.js glow      # one course
+```
