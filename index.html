@@ -729,7 +729,7 @@ function buildMyCourse(){
   const wd=mostAccurate(8,11,8,-1),sw=statOr(wd);
   const sgn=v=>v>0?1:v<0?-1:1;
   // par 3: green exactly at the carry of the most accurate iron, centred on the usual miss
-  const L3=s3.carry,g3=clamp(s3.offStd*1.6+8,12,22),side3=sgn(s3.offMean),x3=s3.offMean;
+  const L3=Math.max(55,s3.carry),g3=clamp(s3.offStd*1.6+8,12,22),side3=sgn(s3.offMean),x3=s3.offMean;
   const h3={teeAim:[0,L3],name:'The '+CLUBS[p3].name,blurb:'Built on your '+CLUBS[p3].name+', '+ydTxt(L3)+' carry',par:3,seed:111+seed,teeElev:3,greenElev:3,fw:28,fwStart:L3*.72,
     path:[[0,0],[x3,L3]],green:{r:g3,rz:clamp(1+s3.carryStd/g3,1,1.45),slope:[.004,-.006],cup:[0,0]},
     bunkers:[[x3-side3*(g3+7),L3+3,5.5],[x3+side3*(g3+9),L3-g3*.6,4.5]],water:L3>110?[[-side3*(34+2*s3.offStd),L3*.5,14,20]]:[]};
