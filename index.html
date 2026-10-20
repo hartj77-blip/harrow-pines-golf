@@ -254,6 +254,11 @@ table.sc{border-collapse:collapse;width:100%;font-size:16px;min-width:440px}
   .meter{width:calc(100vw - 32px);min-width:0;bottom:calc(104px + env(safe-area-inset-bottom,0px))!important}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+#fatal{position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:var(--night);padding:16px;text-align:center}
+#fatal[hidden]{display:none}
+#fatal h2{font-family:var(--display);font-size:30px;margin:0 0 8px}
+#fatal p{color:var(--sage);max-width:420px;margin:0 auto 16px;line-height:1.45}
+#fatal button{font:inherit;font-size:17px;padding:10px 22px;border-radius:10px;border:0;background:var(--flag);color:var(--flag-ink);cursor:pointer}
 </style>
 
 </head>
@@ -378,6 +383,7 @@ table.sc{border-collapse:collapse;width:100%;font-size:16px;min-width:440px}
       <button class="ghost" id="btnSettings">Settings</button>
       <span class="best" id="bestLine"></span>
     </div>
+    <a class="best" href="https://github.com/hartj77-blip/harrow-pines-golf/issues/new" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;color:var(--sage)">Report a bug</a>
   </div>
 </div>
 
@@ -407,10 +413,19 @@ table.sc{border-collapse:collapse;width:100%;font-size:16px;min-width:440px}
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<div id="fatal" hidden role="alert"><div><h2>Harrow Pines couldn't start</h2><p id="fatalMsg"></p><button onclick="location.reload()">Try again</button></div></div>
+<script>
+// Shown instead of a blank screen if the 3D engine or WebGL isn't available.
+function golfFatal(msg){var el=document.getElementById('fatal');document.getElementById('fatalMsg').textContent=msg;el.hidden=false;var i=document.getElementById('intro');if(i)i.hidden=true;}
+window.addEventListener('error',function(e){if(!window.__golf)golfFatal('Something went wrong while loading ('+(e.message||'unknown error')+'). Reloading usually fixes it.');});
+</script>
+<script src="lib/three.min.js"></script>
 <script>
 (function(){
 'use strict';
+if(!window.THREE){golfFatal('The 3D engine didn\'t load. Check your connection and reload.');return;}
+{const t=document.createElement('canvas');let ok=false;try{ok=!!(window.WebGLRenderingContext&&(t.getContext('webgl')||t.getContext('experimental-webgl')));}catch(e){}
+  if(!ok){golfFatal('This browser or device has WebGL turned off, and the game needs it for 3D. Try another browser, or turn on hardware acceleration in your browser settings.');return;}}
 const $=id=>document.getElementById(id);
 const M2YD=1.09361, M2FT=3.28084, MS2MPH=2.23694, G=9.81, TAU=Math.PI*2;
 const BALL_R=0.02134, AERO_K=0.5*1.225*Math.PI*BALL_R*BALL_R/0.04593, CUP_R=0.054;
@@ -1895,7 +1910,7 @@ function showRangeCard(){
   $('cardNext').textContent='Back to the range';$('cardClose').hidden=true;el.dataset.mode='peek';setTimeout(()=>$('cardNext').focus(),50);
 }
 function cardNext(){
-  const el=$('cardOverlay'),mode=el.dataset.mode;el.hidden=true;
+  const el=$('cardOverlay'),mode=el.dataset.mode;if(el.hidden)return;/* ignore a double tap that would skip a hole */el.hidden=true;
   if(mode==='peek'){game.state=game.prevState||'aim';return;}
   if(mode==='final'){if(COURSES[course.id])clearSave();startMode(course.id);return;}
   loadHole(game.holeIdx+1);
@@ -1905,7 +1920,7 @@ function writeBest(v){try{if(course.bestKey)localStorage.setItem(course.bestKey,
 const SAVE_KEY='harrowPinesRound';
 function save(){if(!COURSES[course.id]||isMulti())return;try{const done=course.holes.every((h,i)=>game.scores[i]);if(done){localStorage.removeItem(SAVE_KEY);return;}
   localStorage.setItem(SAVE_KEY,JSON.stringify({course:course.id,scores:game.scores,next:game.holeIdx+1}));}catch(e){}}
-function readSave(){try{const v=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(v&&Array.isArray(v.scores)){v.course=v.course||'harrow';const C=COURSES[v.course];if(C&&v.next>0&&v.next<C.holes.length)return v;}}catch(e){}return null;}
+function readSave(){try{const v=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(v&&Array.isArray(v.scores)){v.course=v.course||'harrow';const C=COURSES[v.course];if(C&&Number.isInteger(v.next)&&v.next>0&&v.next<C.holes.length){/* keep only sane per-hole scores so a damaged save can't break totals */v.scores=C.holes.map((h,i)=>{const n=v.scores[i];return i<v.next&&Number.isInteger(n)&&n>=1&&n<=10?n:undefined;});if(v.scores.slice(0,v.next).every(Boolean))return v;}}}catch(e){}return null;}
 function clearSave(){try{localStorage.removeItem(SAVE_KEY);}catch(e){}}
 
 /* ---------- input ---------- */
@@ -2101,7 +2116,7 @@ function refreshIntro(){
   if(CO){if(resumeData&&resumeData.course===pickMode&&playersCfg.n===1){let rel=0;const pl=resumeData.scores.filter(Boolean).length;resumeData.scores.forEach((v,i)=>{if(v&&CO.holes[i])rel+=v-CO.holes[i].par;});
       $('btnStart').textContent='Resume at hole '+(resumeData.next+1);$('btnNew').hidden=false;line=pl+' hole'+(pl===1?'':'s')+' played, '+(rel===0?'E':(rel>0?'+'+rel:'−'+(-rel)));}
     else{$('btnStart').textContent='Tee off';let b=0;try{b=+(localStorage.getItem(CO.bestKey)||0);}catch(e){}if(b)line='Best round: '+b;}}
-  else if(pickMode==='mine'){$('btnStart').textContent='Play My Course';const b=+(localStorage.getItem('harrowPinesMineBest')||0);line=(n?'':'No range data yet, so it uses standard distances. ')+(b?'Best: '+b:'');}
+  else if(pickMode==='mine'){$('btnStart').textContent='Play My Course';let b=0;try{b=+(localStorage.getItem('harrowPinesMineBest')||0);}catch(e){}line=(n?'':'No range data yet, so it uses standard distances. ')+(b?'Best: '+b:'');}
   else{$('btnStart').textContent='Hit balls';line='Calm wind. Card shows your numbers.';}
   $('bestLine').textContent=line;
 }
@@ -2139,7 +2154,7 @@ addEventListener('resize',resize);resize();
   resumeData=readSave();refreshIntro();applyGfx();
   requestAnimationFrame(frame);
 })();
-window.__golf={GLOW,loadHole,grassMesh:()=>grass,applyGfx,MINI,buildMiniHole,wheelState:()=>ws,settings,playersCfg,nextTurn,setupPlayers,COURSES,THEMES,suggestPower,buildMyCourse,clubStats,recordRange,startMode,course:()=>course,rangeData:()=>rangeData,music,sfx,nudgeAim,aimDist,holeOut,readSave,game,simulate,CLUBS,HOLES,buildHole,launchParams,paintCourse,buildScene,prepareShot,executeShot,onClubChange};
+window.__golf={endFlyover,cardNext,curHoles,playerTotal,SURF,WATER,OOB,GREEN,TEE,PUTTER,M2YD,setRangeData:v=>{rangeData=v;},GLOW,loadHole,grassMesh:()=>grass,applyGfx,MINI,buildMiniHole,wheelState:()=>ws,settings,playersCfg,nextTurn,setupPlayers,COURSES,THEMES,suggestPower,buildMyCourse,clubStats,recordRange,startMode,course:()=>course,rangeData:()=>rangeData,music,sfx,nudgeAim,aimDist,holeOut,readSave,game,simulate,CLUBS,HOLES,buildHole,launchParams,paintCourse,buildScene,prepareShot,executeShot,onClubChange};
 })();
 </script>
 </body>
