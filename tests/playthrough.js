@@ -44,7 +44,7 @@ async function playRound([courseId, nPlayers, seed]) {
   let shots = 0;
   const started = Date.now();
   for (;;) {
-    if (Date.now() - started > 240000 * nPlayers) { problems.push('round took too long'); break; }
+    if (Date.now() - started > 30000 * holes * nPlayers) { problems.push('round took too long'); break; }
     await wait(5);
     const st = game.state;
     if (!game.H) continue;
