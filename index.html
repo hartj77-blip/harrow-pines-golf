@@ -350,11 +350,11 @@ table.sc{border-collapse:collapse;width:100%;font-size:16px;min-width:440px}
     <h1>Harrow Pines</h1>
     <p>Three courses with real ball flight: spin, drag, wind and roll-out all come from the physics model, and every shot reads back on the launch monitor. Practise on the range and My Course reshapes itself around your game.</p>
     <div class="modes" role="radiogroup" aria-label="Choose what to play">
-      <button class="mode" data-mode="harrow" role="radio" aria-checked="true"><b>Harrow Pines</b><span>Pine parkland · 9 holes · par 35</span></button>
-      <button class="mode" data-mode="links" role="radio" aria-checked="false"><b>Saltmarsh Links</b><span>Seaside dunes, pot bunkers, wind · par 36</span></button>
-      <button class="mode" data-mode="mesa" role="radio" aria-checked="false"><b>Red Mesa</b><span>Desert target golf, high tees · par 36</span></button>
-      <button class="mode" data-mode="mini" role="radio" aria-checked="false"><b>Mini Golf</b><span>Windmill, volcano, banks · 9 holes · par 22</span></button>
-      <button class="mode" data-mode="glow" role="radio" aria-checked="false"><b>Glow Golf</b><span>Neon night mini golf: portals, spinners, ice · par 24</span></button>
+      <button class="mode" data-mode="harrow" role="radio" aria-checked="true"><b>Harrow Pines</b><span>Pine parkland · 18 holes · par 71</span></button>
+      <button class="mode" data-mode="links" role="radio" aria-checked="false"><b>Saltmarsh Links</b><span>Seaside dunes, pot bunkers, wind · par 72</span></button>
+      <button class="mode" data-mode="mesa" role="radio" aria-checked="false"><b>Red Mesa</b><span>Desert target golf, high tees · par 72</span></button>
+      <button class="mode" data-mode="mini" role="radio" aria-checked="false"><b>Mini Golf</b><span>Windmill, castle, clown's mouth · 18 holes · par 46</span></button>
+      <button class="mode" data-mode="glow" role="radio" aria-checked="false"><b>Glow Golf</b><span>Neon night mini golf: portals, spinners, ice · par 50</span></button>
       <button class="mode" data-mode="mine" role="radio" aria-checked="false"><b>My Course</b><span id="mineSub">Par 3, 4 and 5 built from your range swings</span></button>
       <button class="mode" data-mode="range" role="radio" aria-checked="false"><b>Driving Range</b><span id="rangeSub">Unlimited balls, every swing logged</span></button>
     </div>
@@ -489,9 +489,29 @@ HOLES.push(
   {name:'Mill Stream',par:3,seed:79,teeElev:5,greenElev:3,fw:24,fwStart:125,
    path:[[0,0],[8,150]],green:{r:14,slope:[-.01,.008],cup:[-3,2]},
    bunkers:[[22,152,5],[-6,166,5]],water:[[-26,95,14,40]]},
-  {name:'Home Pines',par:5,seed:83,teeElev:3,greenElev:4,fw:34,fwStart:105,
+  {name:'Halfway Pines',par:5,seed:83,teeElev:3,greenElev:4,fw:34,fwStart:105,
    path:[[0,0],[0,230],[30,360],[48,480]],green:{r:15,rz:1.15,slope:[-.01,-.012],cup:[-4,4]},
    bunkers:[[-18,240,9],[20,225,8],[52,370,8],[34,486,5],[62,474,5]],water:[[66,300,16,28]]});
+/* back nine */
+HOLES.push(
+  {name:'Stag Hollow',par:4,seed:101,teeElev:4,greenElev:3,fw:32,fwStart:100,path:[[0,0],[0,200],[18,350]],green:{r:14,slope:[.01,-.01],cup:[2,-3]},
+   bunkers:[[18,212,8],[-16,195,7],[30,360,5],[4,346,5]],water:[]},
+  {name:'Long Water',par:4,seed:103,teeElev:3,greenElev:3,fw:30,fwStart:100,path:[[0,0],[-4,210],[-20,380]],green:{r:15,slope:[-.01,-.01],cup:[3,3]},
+   bunkers:[[14,220,8],[-36,372,5],[-6,392,5]],water:[[-48,230,14,60]]},
+  {name:'Quarry Drop',par:3,seed:107,teeElev:14,greenElev:2,fw:24,fwStart:135,path:[[0,0],[6,165]],green:{r:14,slope:[.01,.01],cup:[-3,2]},
+   bunkers:[[-10,160,5],[20,170,5],[8,184,4.5]],water:[[0,80,26,28]]},
+  {name:'Twin Oaks',par:5,seed:109,teeElev:2,greenElev:6,fw:34,fwStart:105,path:[[0,0],[0,230],[35,360],[40,490]],green:{r:15,rz:1.15,slope:[-.008,-.012],cup:[-3,4]},
+   bunkers:[[-18,240,9],[20,228,8],[58,360,8],[22,378,7],[56,492,5],[26,500,5]],water:[[-30,420,14,24]]},
+  {name:'Cedar Dogleg',par:4,seed:113,teeElev:5,greenElev:4,fw:30,fwStart:100,path:[[0,0],[0,190],[-40,300],[-55,370]],green:{r:14,slope:[.01,-.012],cup:[3,-2]},
+   bunkers:[[-24,200,8],[18,185,7],[-70,370,5],[-42,384,5]],water:[]},
+  {name:'Lakeside',par:4,seed:127,teeElev:3,greenElev:2,fw:30,fwStart:100,path:[[0,0],[5,200],[-5,360]],green:{r:15,slope:[-.01,.01],cup:[-3,3]},
+   bunkers:[[-17,210,8],[-20,350,5],[10,376,5]],water:[[40,260,16,70]]},
+  {name:'Chapel Pond',par:3,seed:131,teeElev:4,greenElev:3,fw:24,fwStart:145,path:[[0,0],[-6,175]],green:{r:15,rx:1.1,slope:[.012,-.01],cup:[3,-2]},
+   bunkers:[[-24,176,5],[12,170,5]],water:[[-4,110,30,30]]},
+  {name:'Ridge Run',par:4,seed:137,teeElev:2,greenElev:10,fw:30,fwStart:100,path:[[0,0],[8,200],[22,345]],green:{r:13,rz:1.2,slope:[-.012,.01],cup:[-2,-4]},
+   bunkers:[[-8,212,8],[26,196,7],[36,342,5],[8,350,5],[22,364,4.5]],water:[]},
+  {name:'Home Pines',par:5,seed:139,teeElev:3,greenElev:5,fw:34,fwStart:105,path:[[0,0],[0,240],[-30,370],[-40,495]],green:{r:16,rz:1.15,slope:[.01,-.012],cup:[3,4]},
+   bunkers:[[18,250,9],[-18,232,8],[-50,375,8],[-14,385,7],[-56,500,5],[-24,505,5]],water:[[-72,300,16,30]]});
 const LINKS=[
   {name:'Dune Gate',par:4,seed:201,teeElev:3,greenElev:4,fw:38,fwStart:80,path:[[0,0],[0,200],[-15,345]],green:{r:16,rx:1.1,slope:[.01,-.01],cup:[3,2]},
    bunkers:[[12,215,4],[-14,190,4],[6,240,3.5],[-26,340,4],[-6,360,4]],water:[]},
@@ -509,8 +529,27 @@ const LINKS=[
    bunkers:[[8,225,4.5],[-26,200,4],[31,345,4],[4,363,4]],water:[[45,260,22,50]]},
   {name:'Links End',par:5,seed:239,teeElev:2,greenElev:3,fw:40,fwStart:100,path:[[0,0],[0,250],[25,390],[15,515]],green:{r:16,slope:[-.01,-.01],cup:[-3,3]},
    bunkers:[[-15,262,4],[16,240,4],[42,398,4],[8,402,4],[32,512,4],[-2,522,4]],water:[[-70,350,35,110]]},
-  {name:'Clubhouse',par:4,seed:241,teeElev:4,greenElev:5,fw:36,fwStart:90,path:[[0,0],[0,200],[-12,370]],green:{r:16,slope:[.008,-.01],cup:[3,-3]},
-   bunkers:[[14,210,4],[-14,195,4],[-30,365,4],[5,372,4],[-16,390,4]],water:[]}];
+  {name:'Turnstone',par:4,seed:241,teeElev:4,greenElev:5,fw:36,fwStart:90,path:[[0,0],[0,200],[-12,370]],green:{r:16,slope:[.008,-.01],cup:[3,-3]},
+   bunkers:[[14,210,4],[-14,195,4],[-30,365,4],[5,372,4],[-16,390,4]],water:[]},
+  /* back nine */
+  {name:'Seagrass',par:4,seed:251,teeElev:3,greenElev:3,fw:36,fwStart:90,path:[[0,0],[-5,210],[10,360]],green:{r:15,slope:[.01,-.01],cup:[-3,2]},
+   bunkers:[[8,220,4],[-20,205,4],[-2,240,3.5],[22,355,4],[-4,368,4]],water:[]},
+  {name:'Tide Line',par:5,seed:257,teeElev:2,greenElev:3,fw:38,fwStart:100,path:[[0,0],[0,240],[25,380],[20,505]],green:{r:16,rz:1.2,slope:[-.01,-.01],cup:[3,-3]},
+   bunkers:[[14,250,4],[-14,232,4],[40,385,4],[8,392,4],[34,500,4],[6,512,4]],water:[[-58,300,25,120]]},
+  {name:'Pot Luck',par:3,seed:263,teeElev:4,greenElev:3,fw:26,fwStart:120,path:[[0,0],[4,160]],green:{r:13,slope:[.01,.012],cup:[-2,2]},
+   bunkers:[[-10,150,3.5],[18,152,3.5],[-6,176,3.5],[14,174,3.5],[4,138,3]],water:[]},
+  {name:'Breakwater',par:4,seed:269,teeElev:3,greenElev:2,fw:34,fwStart:90,path:[[0,0],[0,200],[20,350]],green:{r:15,slope:[-.01,.01],cup:[-3,3]},
+   bunkers:[[-14,212,4],[8,232,4],[6,345,4],[34,360,4]],water:[[48,200,18,60]]},
+  {name:'Marram',par:4,seed:271,teeElev:4,greenElev:4,fw:34,fwStart:90,path:[[0,0],[-12,190],[-8,345]],green:{r:14,rz:1.15,slope:[.01,-.012],cup:[2,-3]},
+   bunkers:[[2,200,4],[-28,185,4],[-22,340,4],[6,352,4],[-8,368,3.5]],water:[]},
+  {name:'Shell Bay',par:3,seed:277,teeElev:7,greenElev:3,fw:28,fwStart:155,path:[[0,0],[8,180]],green:{r:15,rx:1.15,slope:[.012,-.008],cup:[-4,0]},
+   bunkers:[[-10,178,4],[26,184,4]],water:[[4,100,42,40]]},
+  {name:'Kittiwake',par:5,seed:281,teeElev:2,greenElev:4,fw:40,fwStart:100,path:[[0,0],[0,250],[-30,385],[-25,515]],green:{r:16,slope:[.008,-.012],cup:[3,3]},
+   bunkers:[[15,262,4],[-15,240,4],[-46,390,4],[-12,398,4],[-40,512,4],[-10,520,4]],water:[[30,420,20,60]]},
+  {name:'Gull Point',par:4,seed:283,teeElev:3,greenElev:3,fw:34,fwStart:90,path:[[0,0],[10,200],[-5,355]],green:{r:15,slope:[-.01,-.01],cup:[3,-2]},
+   bunkers:[[-8,210,4],[28,195,4],[10,350,4],[-14,374,4]],water:[[-56,330,18,40]]},
+  {name:'Clubhouse',par:4,seed:293,teeElev:4,greenElev:5,fw:36,fwStart:90,path:[[0,0],[0,205],[14,375]],green:{r:16,slope:[.008,-.01],cup:[-3,-3]},
+   bunkers:[[-14,215,4],[14,200,4],[30,370,4],[-2,378,4],[14,394,4]],water:[]}];
 const MESA=[
   {name:'Canyon Mouth',par:4,seed:301,teeElev:8,greenElev:4,fw:32,fwStart:100,path:[[0,0],[0,190],[20,330]],green:{r:15,slope:[.01,-.01],cup:[3,2]},
    bunkers:[[-16,200,8],[32,330,6],[8,344,5]],water:[]},
@@ -529,7 +568,26 @@ const MESA=[
   {name:'Spur',par:4,seed:347,teeElev:5,greenElev:4,fw:30,fwStart:100,path:[[0,0],[10,200],[0,340]],green:{r:13,rz:1.25,slope:[-.01,.01],cup:[-2,-4]},
    bunkers:[[-8,212,6],[28,196,6],[-15,336,5],[13,352,5]],water:[]},
   {name:'Sunset Cliffs',par:4,seed:353,teeElev:10,greenElev:6,fw:34,fwStart:100,path:[[0,0],[0,210],[-25,365]],green:{r:15,slope:[.01,-.012],cup:[3,3]},
-   bunkers:[[16,222,8],[-18,200,7],[-43,360,5],[-9,373,5]],water:[[-50,270,14,40]]}];
+   bunkers:[[16,222,8],[-18,200,7],[-43,360,5],[-9,373,5]],water:[[-50,270,14,40]]},
+  /* back nine */
+  {name:'Arroyo',par:4,seed:361,teeElev:6,greenElev:4,fw:32,fwStart:100,path:[[0,0],[0,195],[-22,335]],green:{r:15,slope:[-.01,-.01],cup:[2,3]},
+   bunkers:[[16,205,8],[-36,330,6],[-8,346,5]],water:[]},
+  {name:'Coyote Run',par:4,seed:367,teeElev:8,greenElev:6,fw:30,fwStart:100,path:[[0,0],[12,200],[30,345]],green:{r:14,slope:[.01,-.01],cup:[-3,-2]},
+   bunkers:[[-6,210,7],[30,196,7],[46,342,5],[16,354,5]],water:[]},
+  {name:'Painted Rock',par:3,seed:373,teeElev:15,greenElev:3,fw:24,fwStart:140,path:[[0,0],[-6,170]],green:{r:14,slope:[-.01,.01],cup:[3,2]},
+   bunkers:[[-24,168,6],[10,174,5],[-8,190,4.5]],water:[[-22,90,14,18]]},
+  {name:'Butte',par:5,seed:379,teeElev:5,greenElev:12,fw:34,fwStart:100,path:[[0,0],[0,245],[-35,375],[-30,500]],green:{r:15,rz:1.15,slope:[.01,-.012],cup:[3,4]},
+   bunkers:[[18,255,8],[-18,235,8],[-54,375,8],[-14,385,6],[-46,502,5],[-12,506,5]],water:[]},
+  {name:'Rattlesnake',par:4,seed:383,teeElev:7,greenElev:3,fw:30,fwStart:100,path:[[0,0],[-10,190],[5,340]],green:{r:14,slope:[-.01,.01],cup:[-2,-3]},
+   bunkers:[[6,200,7],[-26,188,6],[-10,336,5],[20,350,5]],water:[[42,250,12,22]]},
+  {name:'Cactus Flat',par:4,seed:389,teeElev:4,greenElev:4,fw:32,fwStart:95,path:[[0,0],[5,205],[0,360]],green:{r:15,slope:[.01,-.01],cup:[3,2]},
+   bunkers:[[-12,215,8],[22,200,7],[0,262,6],[-15,356,5],[15,366,5]],water:[]},
+  {name:'Stone Arch',par:3,seed:397,teeElev:10,greenElev:4,fw:26,fwStart:155,path:[[0,0],[10,190]],green:{r:15,rx:1.1,slope:[.01,.008],cup:[-3,-2]},
+   bunkers:[[-6,188,6],[26,194,5]],water:[[0,100,22,26]]},
+  {name:'Dust Devil',par:5,seed:401,teeElev:6,greenElev:8,fw:36,fwStart:100,path:[[0,0],[0,240],[30,380],[25,505]],green:{r:16,rz:1.2,slope:[-.008,-.012],cup:[-2,4]},
+   bunkers:[[-18,250,8],[18,232,8],[50,385,7],[12,394,6],[40,505,5],[10,512,5]],water:[[-25,410,14,30]]},
+  {name:'Red Rock Home',par:4,seed:409,teeElev:9,greenElev:5,fw:34,fwStart:100,path:[[0,0],[0,210],[20,370]],green:{r:15,slope:[.01,-.01],cup:[-3,3]},
+   bunkers:[[-16,220,8],[16,205,7],[4,372,5],[34,378,5]],water:[[58,300,14,30]]}];
 LINKS.forEach(h=>h.theme='links');MESA.forEach(h=>h.theme='desert');
 /* mini golf: outline is the carpet's border wall (metres, +x = right); blocks [x0,z0,x1,z1,colour,height];
    posts [x,z,r]; water [x,z,r]; feat: bump (negative h = bowl) or ramp; mill [hubX, house front z, spin rad/s] */
@@ -543,8 +601,27 @@ const MINI=[
   {name:'Pond Hop',par:2,outline:[[-1,-.5],[1,-.5],[1,8],[-1,8]],cup:[0,7],path:[[0,0],[-.7,3.5],[0,7]],water:[[.25,3.8,.6]]},
   {name:'Zig Zag',par:3,outline:[[-.6,-.5],[.6,-.5],[.6,3.4],[3.6,3.4],[3.6,8.5],[2.4,8.5],[2.4,4.6],[-.6,4.6]],cup:[3,7.8],path:[[0,0],[0,4],[3,4],[3,7.8]]},
   {name:'Bank Vault',par:2,outline:[[-1.5,-.5],[1.5,-.5],[1.5,5],[-1.5,5]],cup:[-.8,4.1],path:[[0,0],[1.2,2.5],[-.8,4.1]],blocks:[[-1.5,2.4,.85,2.6,'#d2493d',.22]]},
-  {name:'Grand Finale',par:3,outline:[[-.9,-.5],[.9,-.5],[.9,12],[-.9,12]],cup:[0,10.6],path:[[0,0],[0,10.6]],
-   feat:[{t:'ramp',z0:3,z1:5.5,h:.22},{t:'bump',x:0,z:10.6,r:1.1,h:-.05}],posts:[[-.4,7.4,.1],[.42,8.4,.1]]}];
+  {name:'The Turn',par:3,outline:[[-.9,-.5],[.9,-.5],[.9,12],[-.9,12]],cup:[0,10.6],path:[[0,0],[0,10.6]],
+   feat:[{t:'ramp',z0:3,z1:5.5,h:.22},{t:'bump',x:0,z:10.6,r:1.1,h:-.05}],posts:[[-.4,7.4,.1],[.42,8.4,.1]]},
+  /* back nine */
+  {name:'Castle Gate',par:3,outline:[[-.8,-.5],[.8,-.5],[.8,8],[-.8,8]],cup:[0,7.2],path:[[0,0],[0,7.2]],
+   blocks:[[-.8,4,-.2,4.5,'#9a9a9a',.45],[.2,4,.8,4.5,'#9a9a9a',.45]],movers:[[-.2,3.6,.2,3.8,.45,3,0]]},
+  {name:'Sand Hollow',par:2,outline:[[-1,-.5],[1,-.5],[1,7],[-1,7]],cup:[0,6.2],path:[[0,0],[.6,3.4],[0,6.2]],zones:[[-.15,3.4,.62,1.1],[0,6.75,.35,1.1]]},
+  {name:'Lighthouse Loop',par:3,outline:[[-.6,-.5],[.6,-.5],[.6,5],[2,5],[2,1],[3.2,1],[3.2,6.2],[-.6,6.2]],cup:[2.6,1.8],path:[[0,0],[0,5.6],[2.6,5.6],[2.6,1.8]],
+   posts:[[1.3,5.6,.14]]},
+  {name:'Twin Bridges',par:3,outline:[[-.9,-.5],[.9,-.5],[.9,8],[-.9,8]],cup:[0,7.2],path:[[0,0],[.45,3.2],[.45,4.8],[0,7.2]],
+   water:[[-.6,4,.6],[0,4,.6],[.6,4,.6]],islands:[[-.45,3.45,.14],[-.45,3.7,.14],[-.45,3.95,.14],[-.45,4.2,.14],[-.45,4.45,.14],[.45,3.45,.14],[.45,3.7,.14],[.45,3.95,.14],[.45,4.2,.14],[.45,4.45,.14]]},
+  {name:'Rollercoaster',par:3,outline:[[-.7,-.5],[.7,-.5],[.7,10],[-.7,10]],cup:[0,9.2],path:[[0,0],[0,9.2]],
+   feat:[{t:'ramp',z0:1.8,z1:3,h:.2},{t:'ramp',z0:4.2,z1:5.2,h:-.2},{t:'bump',x:0,z:6.6,r:.5,h:.08},{t:'bump',x:0,z:9.2,r:.9,h:-.05}]},
+  {name:'Pachinko',par:2,outline:[[-1.1,-.5],[1.1,-.5],[1.1,7.5],[-1.1,7.5]],cup:[0,6.8],path:[[0,0],[0,6.8]],
+   posts:[[0,2.4,.08],[-.55,3.2,.08],[.55,3.2,.08],[0,4,.08],[-.55,4.8,.08],[.55,4.8,.08],[0,5.6,.08],[-.85,2.4,.08],[.85,2.4,.08]]},
+  {name:'Old Mill Bend',par:3,outline:[[-.8,-.5],[.8,-.5],[.8,7],[3.8,7],[3.8,8.4],[-.8,8.4]],cup:[3.2,7.7],path:[[0,0],[0,7.7],[3.2,7.7]],
+   blocks:[[-.8,3.2,-.16,3.8,'#efe6d2',.9],[.16,3.2,.8,3.8,'#efe6d2',.9]],mill:[0,3.2,1.3]},
+  {name:'The Funnel',par:2,outline:[[-1.6,-.5],[1.6,-.5],[1.6,2],[.45,5.5],[.45,7.4],[-.45,7.4],[-.45,5.5],[-1.6,2]],cup:[0,6.7],path:[[0,0],[0,6.7]],
+   posts:[[0,1.8,.12]]},
+  {name:"Clown's Mouth",par:3,outline:[[-1.2,-.5],[1.2,-.5],[1.2,9],[-1.2,9]],cup:[0,7.8],path:[[0,0],[0,4.5],[0,7.8]],
+   blocks:[[-1.2,4.4,-.75,4.7,'#e8453c',.5],[-.5,4.4,-.15,4.7,'#e8453c',.5],[.15,4.4,.5,4.7,'#e8453c',.5],[.75,4.4,1.2,4.7,'#e8453c',.5]],
+   zones:[[-.85,6.4,.5,1.1],[.85,6.4,.5,1.1]],feat:[{t:'bump',x:0,z:7.8,r:.8,h:-.05}]}];
 MINI.forEach(h=>{h.mini=true;h.theme='mini';h.seed=900;});
 /* Glow Golf: night-time neon. New pieces: portals [inX,inZ,outX,outZ,exitDeg] (0 = straight up the screen),
    movers (sliding gates) [x0,z0,x1,z1,slide,periodSec,phase], spinners [x,z,halfLength,rad/s], bumpers [x,z,r] (kick the ball),
@@ -564,8 +641,27 @@ const GLOW=[
    water:[[0,4.6,1.25]],islands:[[0,4.6,.45],[0,3.47,.19],[0,3.75,.19],[0,4.02,.19]]},
   {name:'Loop Pipe',par:3,outline:[[-.6,-.5],[2.3,-.5],[2.3,7.5],[-.6,7.5]],cup:[1.65,1.2],path:[[0,0],[0,6.8],[1.65,6.8],[1.65,1.2]],
    blocks:[[.7,-.5,1,7.5,'#3fd8ff',.25]],portals:[[0,6.8,1.65,6.75,180]]},
-  {name:'Grand Glow',par:3,outline:[[-1,-.5],[1,-.5],[1,11],[-1,11]],cup:[0,10.1],path:[[0,0],[0,10.1]],
-   movers:[[-.5,2.4,.5,2.65,.5,3,0]],spinners:[[0,5.2,.8,1.3]],bumpers:[[-.55,7,.13],[.55,7,.13]],feat:[{t:'ramp',z0:7.8,z1:8.8,h:.15},{t:'bump',x:0,z:10.1,r:1,h:-.05}]}];
+  {name:'Halfway Glow',par:3,outline:[[-1,-.5],[1,-.5],[1,11],[-1,11]],cup:[0,10.1],path:[[0,0],[0,10.1]],
+   movers:[[-.5,2.4,.5,2.65,.5,3,0]],spinners:[[0,5.2,.8,1.3]],bumpers:[[-.55,7,.13],[.55,7,.13]],feat:[{t:'ramp',z0:7.8,z1:8.8,h:.15},{t:'bump',x:0,z:10.1,r:1,h:-.05}]},
+  /* back nine */
+  {name:'Double Warp',par:3,outline:[[-.6,-.5],[.6,-.5],[.6,9],[-.6,9]],cup:[0,8.3],path:[[0,0],[0,8.3]],
+   blocks:[[-.6,2.8,.6,3.1,'#3fd8ff',.25],[-.6,5.8,.6,6.1,'#ff3fa4',.25]],portals:[[0,2.2,0,3.7,0],[0,5.2,0,6.7,0]]},
+  {name:'Crosswind',par:3,outline:[[-1.3,-.5],[1.3,-.5],[1.3,7.5],[-1.3,7.5]],cup:[-.8,6.8],path:[[0,0],[-.8,6.8]],
+   boosts:[[0,2.6,2.4,.7,90,2.2],[0,4.6,2.4,.7,-90,2.2]]},
+  {name:'Orbit',par:3,outline:[[-1.5,-.5],[1.5,-.5],[1.5,4.2],[-1.5,4.2]],cup:[0,3.5],path:[[0,0],[0,3.5]],
+   spinners:[[-.72,2,.6,1.7],[.72,2,.6,-1.7]]},
+  {name:'Black Ice',par:3,outline:[[-.7,-.5],[.7,-.5],[.7,5.6],[-3.8,5.6],[-3.8,4.2],[-.7,4.2]],cup:[-3.1,4.9],path:[[0,0],[0,4.9],[-3.1,4.9]],
+   zones:[[0,1.5,1.3,.012],[0,3.6,1.3,.012],[-1.6,4.9,1,.012],[-3.65,4.9,.3,1.1]]},
+  {name:'Rush Hour',par:3,outline:[[-.9,-.5],[.9,-.5],[.9,10],[-.9,10]],cup:[0,9.2],path:[[0,0],[0,9.2]],
+   movers:[[-.45,2.6,.45,2.85,.45,2.2,0],[-.45,4.8,.45,5.05,.45,3.1,1.5],[-.45,7,.45,7.25,.45,1.8,3]]},
+  {name:'Moon Pool',par:3,outline:[[-1.2,-.5],[1.2,-.5],[1.2,7],[-1.2,7]],cup:[0,5.3],path:[[0,0],[0,2.1],[0,4.8],[0,5.3]],
+   water:[[0,4.8,1.6]],islands:[[0,5.3,.55]],portals:[[0,2.1,0,4.85,0]]},
+  {name:'Ricochet',par:2,outline:[[-1.4,-.5],[1.4,-.5],[1.4,6],[-1.4,6]],cup:[0,5.2],path:[[0,0],[1,2.8],[0,5.2]],
+   blocks:[[-.9,2.7,.9,3,'#9dff3f',.25]],bumpers:[[-1.15,2.85,.14],[1.15,2.85,.14],[0,4.3,.12]]},
+  {name:'Hyperloop',par:3,outline:[[-.5,-.5],[.5,-.5],[.5,12],[-.5,12]],cup:[0,11.2],path:[[0,0],[0,11.2]],
+   boosts:[[0,2.4,.9,1.2,0,3],[0,5.4,.9,1.2,0,3]],movers:[[-.25,8.4,.25,8.6,.32,2.4,0]],feat:[{t:'bump',x:0,z:11.2,r:.7,h:-.06}]},
+  {name:'Grand Glow',par:3,outline:[[-1,-.5],[1,-.5],[1,12.5],[-1,12.5]],cup:[0,11.6],path:[[0,0],[0,11.6]],
+   zones:[[0,3,.9,.012]],spinners:[[0,5.8,.85,1.4]],bumpers:[[-.55,7.8,.13],[.55,7.8,.13]],boosts:[[0,9.2,1.2,.8,0,1.6]],feat:[{t:'bump',x:0,z:11.6,r:1,h:-.05}]}];
 GLOW.forEach(h=>{h.mini=true;h.theme='neon';h.seed=950;});
 /* course looks: colours (sRGB 0-255), trees, dunes, wind and a music key per course */
 const THEMES={
@@ -579,11 +675,11 @@ const THEMES={
   desert:{song:'desert',cloud:.12,rough:[194,154,106],roughDeep:[206,160,110],cut:[118,150,70],fairway:[102,160,64],green:[100,172,66],fringe:[92,150,60],tee:[104,166,64],sand:[234,216,172],sandEdge:[200,176,128],oob:[186,138,94],
     outer:'#bb8b5f',hill:'#a5624a',hillH:[90,210],sky:['#3a7ccc','#a9cce8','#eedcc2'],water:'#2a7a8c',trees:{density:.24,mix:[['palm',.35],['shrub',.65]]},shrubCols:['#77885a','#8a8f62','#6c7a50','#9a9a6a'],dunes:1.25,windMax:12,roughName:'Desert',music:3}};
 const COURSES={
-  harrow:{id:'harrow',name:'Harrow Pines',holes:HOLES,bestKey:'harrowPinesBest',theme:'parkland'},
-  links:{id:'links',name:'Saltmarsh Links',holes:LINKS,bestKey:'harrowPinesLinksBest',theme:'links'},
-  mesa:{id:'mesa',name:'Red Mesa',holes:MESA,bestKey:'harrowPinesMesaBest',theme:'desert'},
-  mini:{id:'mini',name:'Hollow Mini Golf',holes:MINI,bestKey:'harrowPinesMiniBest',theme:'mini'},
-  glow:{id:'glow',name:'Glow Golf',holes:GLOW,bestKey:'harrowPinesGlowBest',theme:'neon'}};
+  harrow:{id:'harrow',name:'Harrow Pines',holes:HOLES,bestKey:'harrowPinesBest18',theme:'parkland'},
+  links:{id:'links',name:'Saltmarsh Links',holes:LINKS,bestKey:'harrowPinesLinksBest18',theme:'links'},
+  mesa:{id:'mesa',name:'Red Mesa',holes:MESA,bestKey:'harrowPinesMesaBest18',theme:'desert'},
+  mini:{id:'mini',name:'Hollow Mini Golf',holes:MINI,bestKey:'harrowPinesMiniBest18',theme:'mini'},
+  glow:{id:'glow',name:'Glow Golf',holes:GLOW,bestKey:'harrowPinesGlowBest18',theme:'neon'}};
 const RANGE_DEF={name:'Driving Range',par:0,seed:5,teeElev:2,greenElev:2,fw:84,fwStart:0,range:true,
   path:[[0,0],[0,300]],green:{r:18,slope:[0,0],cup:[0,0]},bunkers:[],water:[],targets:[50,100,150,200,250],tx:[-13,10,-7,12,-2]};
 let course=COURSES.harrow;
@@ -831,8 +927,8 @@ function buildMiniScene(H,cv){
     for(let i=0;i<4;i++){const arm=new THREE.Group();arm.rotation.z=i*Math.PI/2;const bar=new THREE.Mesh(new THREE.BoxGeometry(.03,.74,.02).translate(0,-.37,0),bm);const sl=new THREE.Mesh(new THREE.PlaneGeometry(.12,.5).translate(.07,-.45,0),sail);arm.add(bar,sl);millBlades.add(arm);}
     const hub=new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,.06,12).rotateX(Math.PI/2),bm);millBlades.add(hub);grp.add(millBlades);}
   // Glow Golf pieces
-  const glowMat=c=>new THREE.MeshLambertMaterial({color:col('#140e28'),emissive:col(c),emissiveIntensity:1.2});
-  H.movers.forEach((m,i)=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(m.x1-m.x0,.2,m.z1-m.z0),glowMat(NEONS[(i+2)%5]));const cx=(m.x0+m.x1)/2,cz=(m.z0+m.z1)/2;mesh.position.set(cx,H.height(cx,cz)+.1,cz);grp.add(mesh);miniAnim.push(tt=>{mesh.position.x=cx+H.moverOff(m,tt);});});
+  const glowMat=c=>neon?new THREE.MeshLambertMaterial({color:col('#140e28'),emissive:col(c),emissiveIntensity:1.2}):new THREE.MeshLambertMaterial({color:col(c==='#ffffff'?'#f2ede0':c)});
+  H.movers.forEach((m,i)=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(m.x1-m.x0,.2,m.z1-m.z0),neon?glowMat(NEONS[(i+2)%5]):glowMat(['#c9483c','#3d6fb5','#d9a53a'][i%3]));const cx=(m.x0+m.x1)/2,cz=(m.z0+m.z1)/2;mesh.position.set(cx,H.height(cx,cz)+.1,cz);grp.add(mesh);miniAnim.push(tt=>{mesh.position.x=cx+H.moverOff(m,tt);});});
   H.spinners.forEach((q,i)=>{const g=new THREE.Group();g.position.set(q.x,H.height(q.x,q.z),q.z);const bar=new THREE.Mesh(new THREE.BoxGeometry(.07,.09,q.len*2),glowMat(NEONS[(i+1)%5]));bar.position.y=.06;
     const hub=new THREE.Mesh(new THREE.CylinderGeometry(.08,.1,.16,16),glowMat('#ffffff'));hub.position.y=.08;g.add(bar,hub);grp.add(g);miniAnim.push(tt=>{g.rotation.y=q.w*tt;});});
   H.bumpers.forEach((q,i)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(q.r,q.r*1.08,.16,24),glowMat(NEONS[i%5]));m.position.set(q.x,H.height(q.x,q.z)+.08,q.z);grp.add(m);
@@ -1745,12 +1841,10 @@ function showCard(mode){
   const el=$('cardOverlay'),H=game.H;el.hidden=false;
   if(course.id==='range'){showRangeCard();return;}
   const HS=curHoles();
-  let head='<tr><th>Hole</th>'+HS.map((h,i)=>'<th>'+(i+1)+'</th>').join('')+'<th>Tot</th></tr>';
-  let par='<tr><td>Par</td>'+HS.map(h=>'<td>'+h.par+'</td>').join('')+'<td class="tot">'+coursePar()+'</td></tr>';
-  let tot=0,played=0;
-  if(isMulti()){showMultiCard(mode,head,par);return;}
-  let sc='<tr><td>Score</td>'+HS.map((h,i)=>{const v=game.scores[i];if(!v)return'<td>'+(i===game.holeIdx&&mode==='peek'?'<span class="mark cur">'+(game.strokes||'·')+'</span>':'—')+'</td>';tot+=v;played+=h.par;const d=v-h.par;const cls=d<=-2?'u2':d===-1?'u1':d===1?'o1':d>=2?'o2':'';return'<td><span class="mark '+cls+'">'+v+'</span></td>';}).join('')+'<td class="tot">'+(tot||'—')+'</td></tr>';
-  $('scTable').innerHTML='<thead>'+head+'</thead><tbody>'+par+sc+'</tbody>';
+  if(isMulti()){showMultiCard(mode);return;}
+  const tot=game.scores.reduce((a,v)=>a+(v||0),0);
+  $('scTable').innerHTML=cardRows([{label:'Score',cell:i=>{const v=game.scores[i];if(v)return markCell(v,HS[i].par);return'<td>'+(i===game.holeIdx&&mode==='peek'?'<span class="mark cur">'+(game.strokes||'·')+'</span>':'—')+'</td>';},
+    sum:(a,b)=>{let t=0;for(let i=a;i<b;i++)t+=game.scores[i]||0;return t||'—';}}]);
   const rel=relPar();
   if(mode==='final'){
     const best=readBest();let bestTxt='';
@@ -1766,12 +1860,21 @@ function showCard(mode){
   }
   el.dataset.mode=mode;setTimeout(()=>$('cardNext').focus(),50);
 }
+/* score table rows; 18-hole cards split into front nine (Out) and back nine (In, Tot) */
+function cardRows(rows){
+  const HS=curHoles(),n=HS.length,segs=n>9?[[0,9,'Out'],[9,n,'In']]:[[0,n,'Tot']],parSum=(a,b)=>HS.slice(a,b).reduce((t,h)=>t+h.par,0);
+  const all=[{label:'Par',cell:i=>'<td>'+HS[i].par+'</td>',sum:parSum}].concat(rows);let html='';
+  segs.forEach(([a,b,lab],si)=>{const last=n>9&&si===segs.length-1,idx=[];for(let i=a;i<b;i++)idx.push(i);
+    html+='<tbody><tr class="hd"><th>Hole</th>'+idx.map(i=>'<th>'+(i+1)+'</th>').join('')+'<th>'+lab+'</th>'+(last?'<th>Tot</th>':'')+'</tr>'+
+      all.map(r=>'<tr><td>'+r.label+'</td>'+idx.map(r.cell).join('')+'<td class="tot">'+r.sum(a,b)+'</td>'+(last?'<td class="tot">'+r.sum(0,n)+'</td>':'')+'</tr>').join('')+'</tbody>';});
+  return html;
+}
 function markCell(v,par){const d=v-par,cls=d<=-2?'u2':d===-1?'u1':d===1?'o1':d>=2?'o2':'';return'<td><span class="mark '+cls+'">'+v+'</span></td>';}
-function showMultiCard(mode,head,par){
+function showMultiCard(mode){
   const HS=curHoles(),H=game.H,ps=game.players;storePlayer();
-  const rows=ps.map((P,pi)=>'<tr><td><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:'+P.color+';margin-right:6px"></span>'+escapeHtml(P.name)+'</td>'+HS.map((h,i)=>{const v=P.scores[i];if(v)return markCell(v,h.par);
-      return'<td>'+(i===game.holeIdx&&mode==='peek'&&!P.holed?'<span class="mark cur">'+(P.strokes||'·')+'</span>':'—')+'</td>';}).join('')+'<td class="tot">'+(playerTotal(P)||'—')+'</td></tr>').join('');
-  $('scTable').innerHTML='<thead>'+head+'</thead><tbody>'+par+rows+'</tbody>';
+  $('scTable').innerHTML=cardRows(ps.map(P=>({label:'<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:'+P.color+';margin-right:6px"></span>'+escapeHtml(P.name),
+    cell:i=>{const v=P.scores[i];if(v)return markCell(v,HS[i].par);return'<td>'+(i===game.holeIdx&&mode==='peek'&&!P.holed?'<span class="mark cur">'+(P.strokes||'·')+'</span>':'—')+'</td>';},
+    sum:(a,b)=>{let t=0;for(let i=a;i<b;i++)t+=P.scores[i]||0;return t||'—';}})));
   const rank=ps.map(P=>({P,t:playerTotal(P)})).sort((a,b)=>a.t-b.t);
   if(mode==='final'){const lead=rank.filter(r=>r.t===rank[0].t);
     $('cardEyebrow').textContent='Round complete · '+course.name;$('cardTitle').textContent=lead.length>1?'Tie at '+rank[0].t:escapeHtml(rank[0].P.name)+' wins';
