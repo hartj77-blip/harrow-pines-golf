@@ -10,11 +10,11 @@ Or open `index.html` locally in a browser, or serve the folder with any static h
 
 ## Modes
 
-- **Harrow Pines**: pine-lined parkland, 9 holes, par 35.
-- **Saltmarsh Links**: seaside dunes, golden fescue, pot bunkers, sea inlets and stronger wind; 9 holes, par 36.
-- **Red Mesa**: desert target golf with sandy scrub, palms, red buttes and elevated tees; 9 holes, par 36.
-- **Hollow Mini Golf**: 9 crazy-golf holes, par 22, putter only. Carpet lanes with wooden borders you bank off, posts, a windmill whose sails block the tunnel (time it), a volcano with the cup on top, a ramp, a pond (stroke and replay) and a bank-shot vault. 6-stroke maximum per hole; plays to a carnival waltz.
-- **Glow Golf**: a second mini course, played at night under blacklight, par 24. Neon walls, speckled carpet, a starry sky and new pieces: portals that warp the ball across the hole, sliding doors, a spinning bar, pinball bumpers that kick the ball away, speed strips, an ice rink, sand traps and an island green with a narrow bridge. Plays to a synthwave track.
+- **Harrow Pines**: pine-lined parkland, 18 holes, par 71. The back nine adds a quarry carry, a lakeside fairway and a long par-5 home hole.
+- **Saltmarsh Links**: seaside dunes, golden fescue, pot bunkers, sea inlets and stronger wind; 18 holes, par 72.
+- **Red Mesa**: desert target golf with sandy scrub, palms, red buttes and elevated tees; 18 holes, par 72.
+- **Hollow Mini Golf**: 18 crazy-golf holes, par 46, putter only. Carpet lanes with wooden borders you bank off, posts, a windmill whose sails block the tunnel (time it), a volcano with the cup on top, a ramp, a pond (stroke and replay) and a bank-shot vault. The back nine adds a castle gate with a sliding portcullis, a sand hollow, a U-shaped lighthouse loop, twin bridges over a stream, a rollercoaster of ramps, a pachinko post field, a second windmill on a dogleg, a funnel and a clown's mouth with three openings. 6-stroke maximum per hole; plays to a carnival waltz.
+- **Glow Golf**: a second mini course, played at night under blacklight, 18 holes, par 50. Neon walls, speckled carpet, a starry sky and new pieces: portals that warp the ball across the hole, sliding doors, a spinning bar, pinball bumpers that kick the ball away, speed strips, an ice rink, sand traps, an island green with a narrow bridge. Plays to a synthwave track. The back nine has a double warp, crosswind speed strips, twin counter-rotating spinners, an ice dogleg, three sliding gates at rush hour, a moon pool reached only by portal, a bumper bank shot, a boosted hyperloop and a grand finale that uses a bit of everything.
 
 Round progress on any course saves after each hole (single player).
 
@@ -55,6 +55,6 @@ Range data and best scores live in your browser's local storage.
 - A gold PIN marker on the power gauge showing roughly the power that carries to the pin
 - Shot callouts with synthesized crowd applause and groans
 - 8-bit music with its own tune per course: slow-swing clubhouse jazz at Harrow Pines, a Celtic jig over a drone at Saltmarsh Links, a spaghetti-western ballad at Red Mesa, a calliope waltz at mini golf, synthwave at Glow Golf, and a mellow bossa nova for My Course and the range
-- Scorecard, best round, and round resume saved in the browser
+- Scorecard (front nine and back nine with Out, In and total), best round, and round resume saved in the browser. Best rounds were reset when the courses went to 18 holes, so a 9-hole best doesn't count against a full round
 - Compact layout and touch controls on phones
 - Graphics: real-time soft sun shadows, filmic tone mapping, a sky with sun glow and drifting clouds, layered trees with wind sway, swaying grass tufts around the camera, rippling water, and a High / Medium / Low quality setting (Medium by default on phones)
