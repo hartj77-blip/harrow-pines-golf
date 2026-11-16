@@ -97,7 +97,7 @@ async function playRound([courseId, nPlayers, seed]) {
   let failed = 0;
   const runs = [
     ['harrow', 1], ['links', 1], ['mesa', 1], ['mini', 1], ['glow', 1],
-    ['harrow', 3], ['range-data', 1], ['mine', 1],
+    ['harrow', 3], ['range-data', 1], ['mine', 1], ['layout', 1], ['music', 1],
   ];
   const only = process.argv[2];
   for (const [courseId, n] of runs.filter((r) => !only || r[0] === only)) {
@@ -137,6 +137,48 @@ async function playRound([courseId, nPlayers, seed]) {
         return { problems: [...new Set(problems)].slice(0, 10) };
       });
       label = 'My Course generator (40 random range logs)';
+    } else if (courseId === 'layout') {
+      // Every hole of the three full-size courses: tee and cup sit where they should, the cup is on a flat part of the
+      // green (tiers and mounds must not put it on a slope), streams stay crossable, and landmarks keep off the playing surfaces.
+      result = await page.evaluate(() => {
+        const { COURSES, buildHole, SURF, GREEN, TEE, WATER, FAIRWAY } = window.__golf;
+        const problems = [];
+        for (const id of ['harrow', 'links', 'mesa']) {
+          COURSES[id].holes.forEach((def, i) => {
+            const H = buildHole(def), tag = `${id} ${i + 1} ${def.name}`, n = { x: 0, y: 1, z: 0 };
+            if (H.surface(H.cup.x, H.cup.z) !== GREEN) problems.push(`${tag}: cup is on ${SURF[H.surface(H.cup.x, H.cup.z)].name}`);
+            if (H.surface(0, 0) !== TEE) problems.push(`${tag}: tee is on ${SURF[H.surface(0, 0)].name}`);
+            let steep = 0;
+            for (let a = 0; a < 8; a++) { H.normal(H.cup.x + Math.cos(a * Math.PI / 4) * 0.6, H.cup.z + Math.sin(a * Math.PI / 4) * 0.6, n); steep = Math.max(steep, Math.hypot(n.x, n.z) / n.y); }
+            if (steep > 0.04) problems.push(`${tag}: cup sits on a ${(steep * 100).toFixed(1)}% slope`);
+            let wet = 0, run = 0, longest = 0;
+            for (let s = 0; s < H.total; s += 2) { const p = H.pointAt(s); if (H.surface(p.x, p.z) === WATER) { wet++; run++; longest = Math.max(longest, run); } else run = 0; }
+            if (longest * 2 > 100) problems.push(`${tag}: ${longest * 2} m of water in a row on the centre line`);
+            for (const w of H.water) if (!(w.level > H.edgeH - 4 && w.level < Math.max(H.teeE, H.greenE) + 6)) problems.push(`${tag}: water level ${w.level}`);
+            for (const p of H.props) { const sf = H.surface(p.x, p.z); if (p.cr > 0 && (sf === GREEN || sf === FAIRWAY || sf === TEE)) problems.push(`${tag}: ${p.type} stands on the ${SURF[sf].name}`); }
+          });
+        }
+        return { problems };
+      });
+      label = 'course layouts (54 holes)';
+    } else if (courseId === 'music') {
+      // Every tune: 32 bars of melody and harmony, each bar the right length, and every note the band would play is a real pitch.
+      result = await page.evaluate(() => {
+        const { SONGS, music } = window.__golf;
+        const problems = [];
+        for (const [id, S] of Object.entries(SONGS)) {
+          if (S.mel.length !== 32 || S.root.length !== 32) problems.push(`${id}: needs 32 bars`);
+          S.mel.forEach((bar, b) => { if (bar.length !== S.steps) problems.push(`${id}: bar ${b} has ${bar.length} steps`); });
+          const played = [];
+          const rec = { voice: (w, m) => played.push(m), pluck: (m) => played.push(m), bell: (m) => played.push(m), pad: (ns) => played.push(...ns), harm: music.harm, barAt: music.barAt,
+            hit() {}, thump() {}, kick() {}, snare() {}, hat() {}, crash() {}, songId: id };
+          try { for (let s = 0; s < S.form.length * 16 * S.steps; s++) music.play.call(rec, s, 0, 0.1); } catch (e) { problems.push(`${id}: ${e.message}`); }
+          if (!played.length) problems.push(`${id}: plays nothing`);
+          if (played.some((m) => !Number.isFinite(m) || m < 24 || m > 108)) problems.push(`${id}: note out of range`);
+        }
+        return { problems: [...new Set(problems)] };
+      });
+      label = 'music (6 tunes)';
     } else {
       result = await page.evaluate(playRound, [courseId, n, 12345 + n * 7 + courseId.length]);
     }
