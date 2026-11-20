@@ -72,3 +72,7 @@ node tests/playthrough.js           # everything (slow without a GPU)
 node tests/playthrough.js glow      # one course
 node tests/playthrough.js layout    # just the hole layout check (also: music)
 ```
+
+## License
+
+MIT, see [LICENSE](LICENSE).
